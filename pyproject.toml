@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "capivara-proposals-ai"
+version = "0.1.0"
+description = "API para responder perguntas com base em planos de governo."
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115,<1.0",
+    "httpx>=0.28,<1.0",
+    "openai>=1.68,<3.0",
+    "pymupdf>=1.25,<2.0",
+    "pydantic-settings>=2.7,<3.0",
+    "supabase>=2.15,<3.0",
+    "uvicorn[standard]>=0.34,<1.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.3,<9.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
