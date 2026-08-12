@@ -10,13 +10,22 @@ from app.answering import (
     create_answer_service,
 )
 from app.config import Settings, get_settings
+from app.comparison import (
+    METHODOLOGY,
+    THEMES,
+    ComparisonAnalysisError,
+    create_comparison_service,
+)
 from app.embeddings import EmbeddingError, create_embedding_service
 from app.models import (
     AskRequest,
     AskResponse,
+    CompareRequest,
+    CompareResponse,
     HealthResponse,
     ProcessResponse,
     SourceResponse,
+    ThemeComparisonResponse,
 )
 from app.pdf_processing import (
     PdfDownloadError,
@@ -28,7 +37,7 @@ from app.repositories import ProposalDocumentRepository, get_document_repository
 from app.security import require_internal_secret
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("uvicorn.error")
 
 
 app = FastAPI(
@@ -176,4 +185,98 @@ async def ask(
     return AskResponse(
         answer=generated.answer,
         sources=sources,
+    )
+
+
+@app.post(
+    "/compare",
+    response_model=CompareResponse,
+    dependencies=[Depends(require_internal_secret)],
+)
+async def compare(
+    request: CompareRequest,
+    repository: Annotated[
+        ProposalDocumentRepository, Depends(get_document_repository)
+    ],
+    settings: Annotated[Settings, Depends(get_settings)],
+) -> CompareResponse:
+    """Compara somente a distribuicao tematica de dois planos processados."""
+
+    logger.info(
+        "Starting proposal comparison: candidate_a=%s candidate_b=%s",
+        request.candidate_a_id,
+        request.candidate_b_id,
+    )
+
+    try:
+        material_a = await run_in_threadpool(
+            repository.get_comparison_material,
+            request.candidate_a_id,
+        )
+        material_b = await run_in_threadpool(
+            repository.get_comparison_material,
+            request.candidate_b_id,
+        )
+    except Exception as error:
+        logger.exception(
+            "Database error during comparison: candidate_a=%s candidate_b=%s",
+            request.candidate_a_id,
+            request.candidate_b_id,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Could not load comparison data",
+        ) from error
+
+    for candidate_id, material in (
+        (request.candidate_a_id, material_a),
+        (request.candidate_b_id, material_b),
+    ):
+        if material is None or not material.chunks:
+            logger.info(
+                "Processed plan not found for comparison candidate=%s",
+                candidate_id,
+            )
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Processed plan not found for candidate {candidate_id}",
+            )
+
+    try:
+        comparison_service = create_comparison_service(settings)
+        percentages_a, percentages_b = await comparison_service.compare(
+            material_a,
+            material_b,
+        )
+    except (EmbeddingError, ComparisonAnalysisError) as error:
+        logger.exception(
+            "OpenAI comparison error: candidate_a=%s candidate_b=%s",
+            request.candidate_a_id,
+            request.candidate_b_id,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Could not analyze comparison themes",
+        ) from error
+
+    themes = [
+        ThemeComparisonResponse(
+            key=theme.key,
+            title=theme.title,
+            candidateAPercent=percentages_a[index],
+            candidateBPercent=percentages_b[index],
+        )
+        for index, theme in enumerate(THEMES)
+    ]
+
+    logger.info(
+        "Proposal comparison completed: candidate_a=%s candidate_b=%s",
+        request.candidate_a_id,
+        request.candidate_b_id,
+    )
+    return CompareResponse(
+        candidateA=material_a.candidate,
+        candidateB=material_b.candidate,
+        themes=themes,
+        methodology=METHODOLOGY,
     )

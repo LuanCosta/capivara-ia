@@ -99,3 +99,27 @@ Invoke-RestMethod -Uri "https://SEU-APP.fly.dev/health"
 As rotas `/documents/{document_id}/process` e `/ask` exigem o cabeçalho
 `X-Internal-Secret`. O BFF Ktor deve obter esse segredo no ambiente do servidor;
 ele nunca deve estar no aplicativo Android.
+
+## Comparação temática
+
+`POST /compare` compara a distribuição aproximada do conteúdo de dois planos.
+Os identificadores são sempre valores de `candidates.id`, nunca números
+eleitorais.
+
+```json
+{
+  "candidateAId": 13,
+  "candidateBId": 9
+}
+```
+
+A rota usa os embeddings já armazenados nos chunks. Somente as descrições dos
+seis temas são transformadas em embeddings durante a comparação; os documentos
+completos não são enviados novamente ao modelo generativo. Cada chunk com
+classificação suficientemente clara contribui conforme seu tamanho textual. O
+arredondamento final garante que os seis percentuais de cada candidato somem
+exatamente 100.
+
+Os temas fixos são Economia, Saúde, Educação, Segurança, Social e
+Infraestrutura. O resultado mede presença relativa de conteúdo, não qualidade,
+viabilidade ou mérito político das propostas.

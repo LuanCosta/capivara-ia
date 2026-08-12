@@ -45,6 +45,13 @@ class EmbeddingService:
             raise EmbeddingError("OpenAI returned an unexpected embedding count")
         return vectors[0]
 
+    async def embed_texts(self, texts: list[str]) -> list[list[float]]:
+        """Gera vetores para uma pequena colecao de textos em uma chamada."""
+
+        if not texts:
+            return []
+        return await self._embed_texts(texts)
+
     async def embed_chunks(
         self, chunks: list[ProposalChunk]
     ) -> list[EmbeddedChunk]:

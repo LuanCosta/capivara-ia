@@ -12,7 +12,10 @@ class MissingDocumentRepository:
 
 def test_process_returns_not_found_when_document_does_not_exist() -> None:
     app.dependency_overrides[get_settings] = lambda: Settings(
-            internal_api_secret="test-internal-secret"
+        supabase_url="https://example.supabase.co",
+        supabase_service_role_key="test-service-role-key",
+        openai_api_key="test-openai-key",
+        internal_api_secret="test-internal-secret",
     )
     app.dependency_overrides[get_document_repository] = MissingDocumentRepository
 

@@ -1,7 +1,15 @@
 from datetime import datetime
+from json import loads
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    HttpUrl,
+    field_validator,
+    model_validator,
+)
 
 
 class HealthResponse(BaseModel):
@@ -66,3 +74,73 @@ class RetrievedChunk(BaseModel):
     content: str
     document_url: HttpUrl
     similarity: float
+
+
+class CompareRequest(BaseModel):
+    """Identifica dois candidatos distintos usando candidates.id."""
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    candidate_a_id: int = Field(alias="candidateAId", gt=0)
+    candidate_b_id: int = Field(alias="candidateBId", gt=0)
+
+    @model_validator(mode="after")
+    def candidates_must_be_different(self) -> "CompareRequest":
+        if self.candidate_a_id == self.candidate_b_id:
+            raise ValueError("Candidates must be different")
+        return self
+
+
+class CandidateSummary(BaseModel):
+    """Dados publicos do candidato retornados no comparativo."""
+
+    id: int = Field(gt=0)
+    name: str
+    party: str
+    number: int = Field(gt=0)
+    image: str
+
+
+class ThemeComparisonResponse(BaseModel):
+    """Percentuais de um tema para os dois candidatos."""
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    key: str
+    title: str
+    candidate_a_percent: int = Field(alias="candidateAPercent", ge=0, le=100)
+    candidate_b_percent: int = Field(alias="candidateBPercent", ge=0, le=100)
+
+
+class CompareResponse(BaseModel):
+    """Resposta pequena consumida pelo grafico de radar."""
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    candidate_a: CandidateSummary = Field(alias="candidateA")
+    candidate_b: CandidateSummary = Field(alias="candidateB")
+    themes: list[ThemeComparisonResponse]
+    methodology: str
+
+
+class ProcessedChunk(BaseModel):
+    """Chunk completo usado localmente na classificacao tematica."""
+
+    id: int
+    document_id: int
+    content: str
+    embedding: list[float]
+
+    @field_validator("embedding", mode="before")
+    @classmethod
+    def parse_pgvector(cls, value: object) -> object:
+        if isinstance(value, str):
+            return loads(value)
+        return value
+
+
+class ComparisonMaterial(BaseModel):
+    """Candidato e chunks do plano mais recente que ja foi processado."""
+
+    candidate: CandidateSummary
+    chunks: list[ProcessedChunk]

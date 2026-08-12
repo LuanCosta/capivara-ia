@@ -48,6 +48,9 @@ class FakeDocumentRepository:
 @pytest.fixture
 def client() -> TestClient:
     app.dependency_overrides[get_settings] = lambda: Settings(
+        supabase_url="https://example.supabase.co",
+        supabase_service_role_key="test-service-role-key",
+        openai_api_key="test-openai-key",
         internal_api_secret="test-internal-secret"
     )
     app.dependency_overrides[get_document_repository] = FakeDocumentRepository
@@ -61,6 +64,7 @@ def client() -> TestClient:
     [
         ("/documents/10/process", None),
         ("/ask", {"candidateId": 13, "question": "Qual é a proposta?"}),
+        ("/compare", {"candidateAId": 13, "candidateBId": 9}),
     ],
 )
 def test_protected_routes_reject_missing_secret(
