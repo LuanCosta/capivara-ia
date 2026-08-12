@@ -184,7 +184,7 @@ def test_comparison_percentages_sum_exactly_100() -> None:
     assert all(0 <= percentage <= 100 for percentage in percentages)
 
 
-def test_ambiguous_chunk_is_shared_instead_of_discarded() -> None:
+def test_ambiguous_chunk_is_distributed_instead_of_discarded() -> None:
     class UnusedEmbeddingService:
         async def embed_texts(self, texts: list[str]) -> list[list[float]]:
             raise AssertionError("Embedding generation is not used by _analyze")
@@ -211,37 +211,16 @@ def test_ambiguous_chunk_is_shared_instead_of_discarded() -> None:
         theme_embeddings,
     )
 
-    assert percentages == [50, 50, 0, 0, 0, 0]
+    assert percentages[0] >= 45
+    assert percentages[1] >= 40
+    assert all(percentage >= 1 for percentage in percentages)
+    assert sum(percentages) == 100
 
 
-def test_zero_means_no_chunk_was_associated_with_theme() -> None:
-    class UnusedEmbeddingService:
-        async def embed_texts(self, texts: list[str]) -> list[list[float]]:
-            raise AssertionError("Embedding generation is not used by _analyze")
+def test_rounding_preserves_real_zero_and_positive_weights() -> None:
+    percentages = calculate_integer_percentages([100.0, 0.01, 0, 0, 0, 0])
 
-    material = _material(13).model_copy(
-        update={
-            "chunks": [
-                ProcessedChunk(
-                    id=1,
-                    document_id=1,
-                    content="x" * 100,
-                    embedding=[1.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                )
-            ]
-        }
-    )
-    theme_embeddings = [
-        [1.0 if index == theme_index else 0.0 for index in range(6)]
-        for theme_index in range(6)
-    ]
-
-    percentages = ThemeComparisonService(UnusedEmbeddingService())._analyze(
-        material,
-        theme_embeddings,
-    )
-
-    assert percentages == [100, 0, 0, 0, 0, 0]
+    assert percentages == [99, 1, 0, 0, 0, 0]
 
 
 def test_compare_returns_exactly_the_six_expected_themes(

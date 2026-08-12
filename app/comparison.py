@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from math import floor, sqrt
+from math import exp, floor, sqrt
 from typing import Protocol, Sequence
 
 from app.config import Settings
@@ -8,10 +8,10 @@ from app.models import ComparisonMaterial
 
 
 METHODOLOGY = (
-    "Distribuição temática aproximada do conteúdo de cada plano. "
-    "Zero indica que nenhum trecho foi associado ao tema."
+    "Distribuição aproximada da afinidade semântica do conteúdo de cada "
+    "plano entre os seis temas."
 )
-THEME_SIMILARITY_WINDOW = 0.03
+SIMILARITY_TEMPERATURE = 0.10
 
 
 @dataclass(frozen=True, slots=True)
@@ -105,19 +105,22 @@ class ThemeComparisonService:
                 _cosine_similarity(chunk.embedding, theme_embedding)
                 for theme_embedding in theme_embeddings
             ]
+            # Softmax transforma as similaridades em pesos relativos. Subtrair
+            # o maior valor manté o cálculo numericamente estável.
             best_similarity = max(similarities)
-            related_theme_indexes = [
-                index
-                for index, similarity in enumerate(similarities)
-                if best_similarity - similarity <= THEME_SIMILARITY_WINDOW
+            semantic_weights = [
+                exp(
+                    (similarity - best_similarity)
+                    / SIMILARITY_TEMPERATURE
+                )
+                for similarity in similarities
             ]
-
-            # Um chunk pode tratar de mais de um tema. Nesse caso, seu tamanho
-            # é dividido igualmente entre os temas semanticamente próximos.
+            semantic_weight_total = sum(semantic_weights)
             chunk_weight = len(chunk.content.strip())
-            weight_per_theme = chunk_weight / len(related_theme_indexes)
-            for index in related_theme_indexes:
-                weights[index] += weight_per_theme
+            for index, semantic_weight in enumerate(semantic_weights):
+                weights[index] += (
+                    chunk_weight * semantic_weight / semantic_weight_total
+                )
 
         if sum(weights) == 0:
             raise ComparisonAnalysisError(
@@ -134,18 +137,26 @@ def create_comparison_service(settings: Settings) -> ThemeComparisonService:
 
 
 def calculate_integer_percentages(weights: Sequence[float]) -> list[int]:
-    """Arredonda proporcionalmente preservando soma exata de 100."""
+    """Arredonda pesos positivos preservando soma exata e zeros reais."""
 
     total = sum(weights)
     if total <= 0:
         raise ValueError("At least one weight must be positive")
 
-    exact = [(weight * 100) / total for weight in weights]
-    percentages = [floor(value) for value in exact]
+    positive_count = sum(weight > 0 for weight in weights)
+    distributable = 100 - positive_count
+    exact = [(weight * distributable) / total for weight in weights]
+    percentages = [
+        (1 if weight > 0 else 0) + floor(value)
+        for weight, value in zip(weights, exact, strict=True)
+    ]
     remaining = 100 - sum(percentages)
     priority = sorted(
-        range(len(weights)),
-        key=lambda index: (exact[index] - percentages[index], weights[index]),
+        (index for index, weight in enumerate(weights) if weight > 0),
+        key=lambda index: (
+            exact[index] - floor(exact[index]),
+            weights[index],
+        ),
         reverse=True,
     )
 
