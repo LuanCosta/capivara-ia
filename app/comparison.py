@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from math import floor, sqrt
-from typing import Protocol
+from typing import Protocol, Sequence
 
 from app.config import Settings
 from app.embeddings import EmbeddingError, create_embedding_service
@@ -8,11 +8,10 @@ from app.models import ComparisonMaterial
 
 
 METHODOLOGY = (
-    "Percentual aproximado do conteúdo classificado em cada tema dentro de "
-    "cada plano de governo."
+    "Distribuição temática aproximada do conteúdo de cada plano. "
+    "Zero indica que nenhum trecho foi associado ao tema."
 )
-MIN_THEME_SIMILARITY = 0.25
-MIN_THEME_MARGIN = 0.01
+THEME_SIMILARITY_WINDOW = 0.03
 
 
 @dataclass(frozen=True, slots=True)
@@ -99,26 +98,26 @@ class ThemeComparisonService:
         material: ComparisonMaterial,
         theme_embeddings: list[list[float]],
     ) -> list[int]:
-        weights = [0] * len(THEMES)
+        weights = [0.0] * len(THEMES)
 
         for chunk in material.chunks:
             similarities = [
                 _cosine_similarity(chunk.embedding, theme_embedding)
                 for theme_embedding in theme_embeddings
             ]
-            ranked = sorted(
-                enumerate(similarities),
-                key=lambda item: item[1],
-                reverse=True,
-            )
-            best_index, best_similarity = ranked[0]
-            second_similarity = ranked[1][1]
+            best_similarity = max(similarities)
+            related_theme_indexes = [
+                index
+                for index, similarity in enumerate(similarities)
+                if best_similarity - similarity <= THEME_SIMILARITY_WINDOW
+            ]
 
-            if (
-                best_similarity >= MIN_THEME_SIMILARITY
-                and best_similarity - second_similarity >= MIN_THEME_MARGIN
-            ):
-                weights[best_index] += len(chunk.content.strip())
+            # Um chunk pode tratar de mais de um tema. Nesse caso, seu tamanho
+            # é dividido igualmente entre os temas semanticamente próximos.
+            chunk_weight = len(chunk.content.strip())
+            weight_per_theme = chunk_weight / len(related_theme_indexes)
+            for index in related_theme_indexes:
+                weights[index] += weight_per_theme
 
         if sum(weights) == 0:
             raise ComparisonAnalysisError(
@@ -134,7 +133,7 @@ def create_comparison_service(settings: Settings) -> ThemeComparisonService:
     return ThemeComparisonService(create_embedding_service(settings))
 
 
-def calculate_integer_percentages(weights: list[int]) -> list[int]:
+def calculate_integer_percentages(weights: Sequence[float]) -> list[int]:
     """Arredonda proporcionalmente preservando soma exata de 100."""
 
     total = sum(weights)
