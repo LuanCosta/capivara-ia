@@ -11,6 +11,7 @@ from app.models import (
     ProposalDocument,
     RetrievedChunk,
 )
+from app.pdf_processing import ProposalChunk
 from app.supabase_client import get_supabase_client
 
 
@@ -87,6 +88,39 @@ class ProposalDocumentRepository:
                 "analysis_model_name": analysis_model,
                 "analysis_version_name": analysis_version,
             },
+        ).execute()
+
+    def get_existing_chunks(self, document_id: int) -> list[ProposalChunk]:
+        """Recupera texto já processado quando o PDF remoto está indisponível."""
+
+        response = (
+            self._client.table("proposal_chunks")
+            .select("page,content")
+            .eq("document_id", document_id)
+            .order("id")
+            .execute()
+        )
+        if response is None or not response.data:
+            return []
+        return [ProposalChunk(**item) for item in response.data]
+
+    def upsert_analysis(
+        self,
+        document_id: int,
+        scores: DocumentAnalysisScores,
+        analysis_model: str,
+        analysis_version: str,
+    ) -> None:
+        """Salva somente a análise, preservando chunks que já existem."""
+
+        self._client.table("proposal_document_analysis").upsert(
+            {
+                "document_id": document_id,
+                **scores.model_dump(),
+                "analysis_model": analysis_model,
+                "analysis_version": analysis_version,
+            },
+            on_conflict="document_id",
         ).execute()
 
     def match_chunks(

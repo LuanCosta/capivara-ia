@@ -7,6 +7,15 @@ import httpx
 MAX_PDF_BYTES = 25 * 1024 * 1024
 CHUNK_MAX_CHARACTERS = 1_800
 CHUNK_OVERLAP_CHARACTERS = 250
+PDF_REQUEST_HEADERS = {
+    "Accept": "application/pdf,application/octet-stream;q=0.9,*/*;q=0.8",
+    "Referer": "https://divulgacandcontas.tse.jus.br/",
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/131.0.0.0 Safari/537.36"
+    ),
+}
 
 
 class PdfDownloadError(Exception):
@@ -37,8 +46,16 @@ async def download_pdf(document_url: str) -> bytes:
             follow_redirects=True,
             timeout=httpx.Timeout(30.0),
         ) as client:
-            response = await client.get(document_url)
+            response = await client.get(
+                document_url,
+                headers=PDF_REQUEST_HEADERS,
+            )
             response.raise_for_status()
+    except httpx.HTTPStatusError as error:
+        status_code = error.response.status_code
+        raise PdfDownloadError(
+            f"Could not download document: remote server returned {status_code}"
+        ) from error
     except httpx.HTTPError as error:
         raise PdfDownloadError("Could not download document") from error
 

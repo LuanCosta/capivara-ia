@@ -75,32 +75,45 @@ async def process_document(
             detail="Document not found",
         )
 
+    reused_existing_chunks = False
     try:
         pdf_bytes = await download_pdf(str(document.document_url))
         chunks = await run_in_threadpool(extract_and_chunk_pdf, pdf_bytes)
     except PdfDownloadError as error:
-        raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
-            detail=str(error),
-        ) from error
+        logger.warning(
+            "PDF download failed for document %s; trying persisted chunks",
+            document_id,
+        )
+        chunks = await run_in_threadpool(
+            repository.get_existing_chunks,
+            document.id,
+        )
+        if not chunks:
+            raise HTTPException(
+                status_code=status.HTTP_502_BAD_GATEWAY,
+                detail=str(error),
+            ) from error
+        reused_existing_chunks = True
     except PdfProcessingError as error:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
             detail=str(error),
         ) from error
 
-    try:
-        embedding_service = create_embedding_service(settings)
-        embedded_chunks = await embedding_service.embed_chunks(chunks)
-    except EmbeddingError as error:
-        logger.exception(
-            "Embedding generation failed for document %s",
-            document_id,
-        )
-        raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
-            detail=str(error),
-        ) from error
+    embedded_chunks = None
+    if not reused_existing_chunks:
+        try:
+            embedding_service = create_embedding_service(settings)
+            embedded_chunks = await embedding_service.embed_chunks(chunks)
+        except EmbeddingError as error:
+            logger.exception(
+                "Embedding generation failed for document %s",
+                document_id,
+            )
+            raise HTTPException(
+                status_code=status.HTTP_502_BAD_GATEWAY,
+                detail=str(error),
+            ) from error
 
     try:
         comparison_service = create_comparison_service(settings)
@@ -116,14 +129,23 @@ async def process_document(
         ) from error
 
     try:
-        await run_in_threadpool(
-            repository.replace_chunks_and_analysis,
-            document.id,
-            embedded_chunks,
-            analysis_scores,
-            settings.openai_response_model,
-            ANALYSIS_VERSION,
-        )
+        if embedded_chunks is None:
+            await run_in_threadpool(
+                repository.upsert_analysis,
+                document.id,
+                analysis_scores,
+                settings.openai_response_model,
+                ANALYSIS_VERSION,
+            )
+        else:
+            await run_in_threadpool(
+                repository.replace_chunks_and_analysis,
+                document.id,
+                embedded_chunks,
+                analysis_scores,
+                settings.openai_response_model,
+                ANALYSIS_VERSION,
+            )
     except Exception as error:
         logger.exception(
             "Persistence failed for document %s",
@@ -136,7 +158,7 @@ async def process_document(
 
     return ProcessResponse(
         documentId=document.id,
-        chunksProcessed=len(embedded_chunks),
+        chunksProcessed=len(chunks),
     )
 
 

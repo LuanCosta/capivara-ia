@@ -6,7 +6,7 @@ from app.answering import GeneratedAnswer
 from app.embeddings import EmbeddedChunk
 from app.main import app
 from app.models import DocumentAnalysisScores, ProposalDocument, RetrievedChunk
-from app.pdf_processing import ProposalChunk
+from app.pdf_processing import PdfDownloadError, ProposalChunk
 from app.repositories import get_document_repository
 
 
@@ -133,6 +133,59 @@ def test_valid_secret_reaches_process_handler(
 
     assert response.status_code == 200
     assert response.json() == {"documentId": 10, "chunksProcessed": 1}
+
+
+def test_process_reuses_existing_chunks_when_pdf_download_fails(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    class CachedRepository(FakeDocumentRepository):
+        analysis_saved = False
+
+        def get_existing_chunks(self, document_id: int) -> list[ProposalChunk]:
+            return [ProposalChunk(page=3, content="Proposta já processada")]
+
+        def upsert_analysis(
+            self,
+            document_id: int,
+            scores: DocumentAnalysisScores,
+            analysis_model: str,
+            analysis_version: str,
+        ) -> None:
+            self.analysis_saved = True
+
+    repository = CachedRepository()
+
+    async def failed_download(document_url: str) -> bytes:
+        raise PdfDownloadError("Could not download document")
+
+    class FakeComparisonService:
+        async def analyze(
+            self, chunks: list[ProposalChunk]
+        ) -> DocumentAnalysisScores:
+            return DocumentAnalysisScores(
+                economy=20,
+                health=20,
+                education=20,
+                security=20,
+                social=20,
+                infrastructure=20,
+            )
+
+    app.dependency_overrides[get_document_repository] = lambda: repository
+    monkeypatch.setattr("app.main.download_pdf", failed_download)
+    monkeypatch.setattr(
+        "app.main.create_comparison_service",
+        lambda settings: FakeComparisonService(),
+    )
+
+    response = client.post(
+        "/documents/10/process",
+        headers={"X-Internal-Secret": "test-internal-secret"},
+    )
+
+    assert response.status_code == 200
+    assert response.json() == {"documentId": 10, "chunksProcessed": 1}
+    assert repository.analysis_saved is True
 
 
 def test_ask_validates_request_body(client: TestClient) -> None:
