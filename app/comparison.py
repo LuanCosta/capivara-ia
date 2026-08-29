@@ -1,12 +1,11 @@
-from asyncio import gather
 from dataclasses import dataclass
 from typing import Protocol
 
 from openai import AsyncOpenAI, OpenAIError
-from pydantic import BaseModel, Field
 
 from app.config import Settings
-from app.models import ComparisonMaterial, ProcessedChunk
+from app.models import DocumentAnalysisScores
+from app.pdf_processing import ProposalChunk
 
 
 METHODOLOGY = (
@@ -15,6 +14,7 @@ METHODOLOGY = (
 )
 MAX_ANALYSIS_CHUNKS = 80
 MAX_ANALYSIS_CHARACTERS = 120_000
+ANALYSIS_VERSION = "document-detail-v1"
 
 
 @dataclass(frozen=True, slots=True)
@@ -52,18 +52,6 @@ independentes e não precisam somar 100. Retorne somente a estrutura solicitada.
 """.strip()
 
 
-class DocumentReadinessScores(BaseModel):
-    economy: int = Field(ge=0, le=100)
-    health: int = Field(ge=0, le=100)
-    education: int = Field(ge=0, le=100)
-    security: int = Field(ge=0, le=100)
-    social: int = Field(ge=0, le=100)
-    infrastructure: int = Field(ge=0, le=100)
-
-    def as_list(self) -> list[int]:
-        return [getattr(self, criterion.key) for criterion in THEMES]
-
-
 class ResponsesEndpoint(Protocol):
     async def parse(self, **kwargs: object) -> object: ...
 
@@ -77,35 +65,24 @@ class ComparisonAnalysisError(Exception):
 
 
 class ThemeComparisonService:
-    """Calcula critérios documentais sem comparar os candidatos no prompt."""
+    """Calcula uma vez os critérios documentais de um plano processado."""
 
     def __init__(self, client: ComparisonClient, model: str) -> None:
         self._client = client
         self._model = model
 
-    async def compare(
+    async def analyze(
         self,
-        candidate_a: ComparisonMaterial,
-        candidate_b: ComparisonMaterial,
-    ) -> tuple[list[int], list[int]]:
-        scores_a, scores_b = await gather(
-            self._analyze(candidate_a),
-            self._analyze(candidate_b),
-        )
-        return scores_a.as_list(), scores_b.as_list()
-
-    async def _analyze(
-        self,
-        material: ComparisonMaterial,
-    ) -> DocumentReadinessScores:
-        input_text = _build_analysis_input(material)
+        chunks: list[ProposalChunk],
+    ) -> DocumentAnalysisScores:
+        input_text = _build_analysis_input(chunks)
 
         try:
             response = await self._client.responses.parse(
                 model=self._model,
                 instructions=ANALYSIS_INSTRUCTIONS,
                 input=input_text,
-                text_format=DocumentReadinessScores,
+                text_format=DocumentAnalysisScores,
                 max_output_tokens=300,
                 store=False,
                 temperature=0,
@@ -133,23 +110,21 @@ def create_comparison_service(settings: Settings) -> ThemeComparisonService:
     return ThemeComparisonService(client, settings.openai_response_model)
 
 
-def _build_analysis_input(material: ComparisonMaterial) -> str:
-    selected_chunks = _select_representative_chunks(material)
+def _build_analysis_input(chunks: list[ProposalChunk]) -> str:
+    selected_chunks = _select_representative_chunks(chunks)
     formatted_chunks = "\n\n".join(
-        f'<trecho id="{chunk.id}">\n{chunk.content.strip()}\n</trecho>'
-        for chunk in selected_chunks
+        f'<trecho id="{index}" pagina="{chunk.page}">\n'
+        f"{chunk.content.strip()}\n</trecho>"
+        for index, chunk in enumerate(selected_chunks, start=1)
     )
     return f"TRECHOS DO PLANO:\n{formatted_chunks}"
 
 
 def _select_representative_chunks(
-    material: ComparisonMaterial,
-) -> list[ProcessedChunk]:
-    chunks = material.chunks
+    chunks: list[ProposalChunk],
+) -> list[ProposalChunk]:
     if not chunks:
-        raise ComparisonAnalysisError(
-            f"No content for candidate {material.candidate.id}"
-        )
+        raise ComparisonAnalysisError("No document content to analyze")
 
     if len(chunks) <= MAX_ANALYSIS_CHUNKS:
         candidates = chunks
@@ -161,7 +136,7 @@ def _select_representative_chunks(
         }
         candidates = [chunks[index] for index in sorted(indexes)]
 
-    selected: list[ProcessedChunk] = []
+    selected: list[ProposalChunk] = []
     characters = 0
     for chunk in candidates:
         content_length = len(chunk.content.strip())

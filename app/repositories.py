@@ -7,7 +7,7 @@ from app.embeddings import EmbeddedChunk
 from app.models import (
     CandidateSummary,
     ComparisonMaterial,
-    ProcessedChunk,
+    DocumentAnalysisScores,
     ProposalDocument,
     RetrievedChunk,
 )
@@ -60,6 +60,35 @@ class ProposalDocumentRepository:
             },
         ).execute()
 
+    def replace_chunks_and_analysis(
+        self,
+        document_id: int,
+        chunks: list[EmbeddedChunk],
+        scores: DocumentAnalysisScores,
+        analysis_model: str,
+        analysis_version: str,
+    ) -> None:
+        """Substitui chunks e análise temática na mesma transação do PostgreSQL."""
+
+        new_chunks = [
+            {
+                "page": chunk.page,
+                "content": chunk.content,
+                "embedding": chunk.embedding,
+            }
+            for chunk in chunks
+        ]
+        self._client.rpc(
+            "replace_proposal_chunks_with_analysis",
+            {
+                "target_document_id": document_id,
+                "new_chunks": new_chunks,
+                "new_analysis": scores.model_dump(),
+                "analysis_model_name": analysis_model,
+                "analysis_version_name": analysis_version,
+            },
+        ).execute()
+
     def match_chunks(
         self,
         candidate_id: int,
@@ -86,7 +115,7 @@ class ProposalDocumentRepository:
         self,
         candidate_id: int,
     ) -> ComparisonMaterial | None:
-        """Carrega o candidato e o plano mais recente que possua chunks."""
+        """Carrega o candidato e a análise do plano processado mais recente."""
 
         candidate_response = (
             self._client.table("candidates")
@@ -122,23 +151,24 @@ class ProposalDocumentRepository:
 
         for document in documents:
             document_id = int(document["id"])
-            chunks_response = (
-                self._client.table("proposal_chunks")
-                .select("id,document_id,content,embedding")
+            analysis_response = (
+                self._client.table("proposal_document_analysis")
+                .select(
+                    "economy,health,education,security,social,infrastructure"
+                )
                 .eq("document_id", document_id)
-                .order("id")
+                .maybe_single()
                 .execute()
             )
-            if chunks_response is not None and chunks_response.data:
+            if analysis_response is not None and analysis_response.data:
                 return ComparisonMaterial(
                     candidate=candidate,
-                    chunks=[
-                        ProcessedChunk.model_validate(chunk)
-                        for chunk in chunks_response.data
-                    ],
+                    scores=DocumentAnalysisScores.model_validate(
+                        analysis_response.data
+                    ),
                 )
 
-        return ComparisonMaterial(candidate=candidate, chunks=[])
+        return ComparisonMaterial(candidate=candidate, scores=None)
 
 
 def get_document_repository(

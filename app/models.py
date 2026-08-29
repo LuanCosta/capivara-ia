@@ -1,5 +1,4 @@
 from datetime import datetime
-from json import loads
 from typing import Literal
 
 from pydantic import (
@@ -7,7 +6,6 @@ from pydantic import (
     ConfigDict,
     Field,
     HttpUrl,
-    field_validator,
     model_validator,
 )
 
@@ -123,24 +121,29 @@ class CompareResponse(BaseModel):
     methodology: str
 
 
-class ProcessedChunk(BaseModel):
-    """Chunk completo usado localmente na classificacao tematica."""
+class DocumentAnalysisScores(BaseModel):
+    """Índices temáticos calculados uma vez durante o processamento do plano."""
 
-    id: int
-    document_id: int
-    content: str
-    embedding: list[float]
+    economy: int = Field(ge=0, le=100)
+    health: int = Field(ge=0, le=100)
+    education: int = Field(ge=0, le=100)
+    security: int = Field(ge=0, le=100)
+    social: int = Field(ge=0, le=100)
+    infrastructure: int = Field(ge=0, le=100)
 
-    @field_validator("embedding", mode="before")
-    @classmethod
-    def parse_pgvector(cls, value: object) -> object:
-        if isinstance(value, str):
-            return loads(value)
-        return value
+    def as_list(self) -> list[int]:
+        return [
+            self.economy,
+            self.health,
+            self.education,
+            self.security,
+            self.social,
+            self.infrastructure,
+        ]
 
 
 class ComparisonMaterial(BaseModel):
-    """Candidato e chunks do plano mais recente que ja foi processado."""
+    """Candidato e análise persistida de seu plano mais recente."""
 
     candidate: CandidateSummary
-    chunks: list[ProcessedChunk]
+    scores: DocumentAnalysisScores | None

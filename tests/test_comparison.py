@@ -3,13 +3,15 @@ from fastapi.testclient import TestClient
 
 from app.comparison import (
     ANALYSIS_INSTRUCTIONS,
-    ComparisonAnalysisError,
-    DocumentReadinessScores,
     THEMES,
 )
 from app.config import Settings, get_settings
 from app.main import app
-from app.models import CandidateSummary, ComparisonMaterial, ProcessedChunk
+from app.models import (
+    CandidateSummary,
+    ComparisonMaterial,
+    DocumentAnalysisScores,
+)
 from app.repositories import get_document_repository
 
 
@@ -37,14 +39,14 @@ def _material(candidate_id: int) -> ComparisonMaterial:
             number=numbers[candidate_id],
             image=images[candidate_id],
         ),
-        chunks=[
-            ProcessedChunk(
-                id=candidate_id,
-                document_id=candidate_id,
-                content="Conteudo processado do plano de governo",
-                embedding=[0.1] * 1_536,
-            )
-        ],
+        scores=DocumentAnalysisScores(
+            economy=45 if candidate_id == 13 else 40,
+            health=40 if candidate_id == 13 else 35,
+            education=40 if candidate_id == 13 else 50,
+            security=35 if candidate_id == 13 else 45,
+            social=40,
+            infrastructure=40,
+        ),
     )
 
 
@@ -55,17 +57,8 @@ class FakeComparisonRepository:
         return _material(candidate_id)
 
 
-class FakeComparisonService:
-    async def compare(
-        self,
-        candidate_a: ComparisonMaterial,
-        candidate_b: ComparisonMaterial,
-    ) -> tuple[list[int], list[int]]:
-        return [19, 18, 17, 16, 16, 14], [15, 15, 16, 16, 18, 20]
-
-
 @pytest.fixture
-def client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
+def client() -> TestClient:
     app.dependency_overrides[get_settings] = lambda: Settings(
         supabase_url="https://example.supabase.co",
         supabase_service_role_key="test-service-role-key",
@@ -73,10 +66,6 @@ def client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
         internal_api_secret=SECRET,
     )
     app.dependency_overrides[get_document_repository] = FakeComparisonRepository
-    monkeypatch.setattr(
-        "app.main.create_comparison_service",
-        lambda settings: FakeComparisonService(),
-    )
     with TestClient(app) as test_client:
         yield test_client
     app.dependency_overrides.clear()
@@ -149,36 +138,8 @@ def test_compare_rejects_missing_or_invalid_secret(
     assert response.status_code == 401
 
 
-def test_compare_returns_bad_gateway_when_openai_fails(
-    client: TestClient,
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    class FailingComparisonService:
-        async def compare(
-            self,
-            candidate_a: ComparisonMaterial,
-            candidate_b: ComparisonMaterial,
-        ) -> tuple[list[int], list[int]]:
-            raise ComparisonAnalysisError("OpenAI unavailable")
-
-    monkeypatch.setattr(
-        "app.main.create_comparison_service",
-        lambda settings: FailingComparisonService(),
-    )
-    response = client.post(
-        "/compare",
-        headers={"X-Internal-Secret": SECRET},
-        json={"candidateAId": 13, "candidateBId": 9},
-    )
-
-    assert response.status_code == 502
-    assert response.json() == {
-        "detail": "Could not analyze proposal details"
-    }
-
-
 def test_document_scores_are_independent_and_do_not_need_to_sum_100() -> None:
-    scores = DocumentReadinessScores(
+    scores = DocumentAnalysisScores(
         economy=20,
         health=10,
         education=30,
@@ -197,6 +158,24 @@ def test_analysis_prompt_forbids_external_knowledge_and_candidate_comparison() -
     assert "não use conhecimento externo" in normalized
     assert "não compare candidatos" in normalized
     assert "não precisam somar 100" in normalized
+
+
+def test_compare_reads_persisted_scores_without_calling_openai(
+    client: TestClient,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fail_if_created(settings: Settings) -> None:
+        raise AssertionError("/compare must not create an OpenAI service")
+
+    monkeypatch.setattr("app.main.create_comparison_service", fail_if_created)
+
+    response = client.post(
+        "/compare",
+        headers={"X-Internal-Secret": SECRET},
+        json={"candidateAId": 13, "candidateBId": 9},
+    )
+
+    assert response.status_code == 200
 
 
 def test_compare_returns_exactly_the_six_expected_themes(

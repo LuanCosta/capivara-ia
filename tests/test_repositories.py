@@ -1,6 +1,7 @@
 from typing import Self
 
 from app.embeddings import EmbeddedChunk
+from app.models import DocumentAnalysisScores
 from app.repositories import ProposalDocumentRepository
 
 
@@ -78,6 +79,45 @@ def test_replace_chunks_calls_transactional_database_function() -> None:
         ],
     }
     assert client.query.was_executed is True
+
+
+def test_replace_chunks_and_analysis_calls_transactional_database_function() -> None:
+    client = RecordingSupabaseClient()
+    repository = ProposalDocumentRepository(client)  # type: ignore[arg-type]
+    chunks = [
+        EmbeddedChunk(page=7, content="Proposta", embedding=[0.1] * 1_536)
+    ]
+    scores = DocumentAnalysisScores(
+        economy=45,
+        health=40,
+        education=35,
+        security=30,
+        social=25,
+        infrastructure=20,
+    )
+
+    repository.replace_chunks_and_analysis(
+        document_id=13,
+        chunks=chunks,
+        scores=scores,
+        analysis_model="gpt-test",
+        analysis_version="test-v1",
+    )
+
+    assert client.function_name == "replace_proposal_chunks_with_analysis"
+    assert client.parameters == {
+        "target_document_id": 13,
+        "new_chunks": [
+            {
+                "page": 7,
+                "content": "Proposta",
+                "embedding": [0.1] * 1_536,
+            }
+        ],
+        "new_analysis": scores.model_dump(),
+        "analysis_model_name": "gpt-test",
+        "analysis_version_name": "test-v1",
+    }
 
 
 def test_match_chunks_calls_candidate_filtered_rpc() -> None:

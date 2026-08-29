@@ -103,6 +103,15 @@ ele nunca deve estar no aplicativo Android.
 ## Comparação temática
 
 `POST /compare` mede o detalhamento das propostas em seis temas fixos.
+
+Os índices são calculados uma única vez pela OpenAI durante
+`POST /documents/{document_id}/process` e ficam armazenados em
+`proposal_document_analysis`. Assim, chamadas posteriores de `/compare` apenas
+leem os valores do Supabase e não geram novo custo de OpenAI.
+
+Antes de publicar esta versão, execute no SQL Editor do Supabase o arquivo
+`supabase/proposal_document_analysis.sql`. Depois, reprocesse os documentos para
+preencher a análise persistida.
 Os identificadores são sempre valores de `candidates.id`, nunca números
 eleitorais.
 

@@ -11,6 +11,7 @@ from app.answering import (
 )
 from app.config import Settings, get_settings
 from app.comparison import (
+    ANALYSIS_VERSION,
     METHODOLOGY,
     THEMES,
     ComparisonAnalysisError,
@@ -101,11 +102,37 @@ async def process_document(
             detail=str(error),
         ) from error
 
-    await run_in_threadpool(
-        repository.replace_chunks,
-        document.id,
-        embedded_chunks,
-    )
+    try:
+        comparison_service = create_comparison_service(settings)
+        analysis_scores = await comparison_service.analyze(chunks)
+    except ComparisonAnalysisError as error:
+        logger.exception(
+            "Document analysis failed for document %s",
+            document_id,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Could not analyze proposal details",
+        ) from error
+
+    try:
+        await run_in_threadpool(
+            repository.replace_chunks_and_analysis,
+            document.id,
+            embedded_chunks,
+            analysis_scores,
+            settings.openai_response_model,
+            ANALYSIS_VERSION,
+        )
+    except Exception as error:
+        logger.exception(
+            "Persistence failed for document %s",
+            document_id,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Could not persist processed document",
+        ) from error
 
     return ProcessResponse(
         documentId=document.id,
@@ -198,9 +225,8 @@ async def compare(
     repository: Annotated[
         ProposalDocumentRepository, Depends(get_document_repository)
     ],
-    settings: Annotated[Settings, Depends(get_settings)],
 ) -> CompareResponse:
-    """Mede o detalhamento de execução de dois planos processados."""
+    """Compara índices já calculados no processamento dos documentos."""
 
     logger.info(
         "Starting proposal comparison: candidate_a=%s candidate_b=%s",
@@ -232,7 +258,7 @@ async def compare(
         (request.candidate_a_id, material_a),
         (request.candidate_b_id, material_b),
     ):
-        if material is None or not material.chunks:
+        if material is None or material.scores is None:
             logger.info(
                 "Processed plan not found for comparison candidate=%s",
                 candidate_id,
@@ -242,22 +268,8 @@ async def compare(
                 detail=f"Processed plan not found for candidate {candidate_id}",
             )
 
-    try:
-        comparison_service = create_comparison_service(settings)
-        percentages_a, percentages_b = await comparison_service.compare(
-            material_a,
-            material_b,
-        )
-    except (EmbeddingError, ComparisonAnalysisError) as error:
-        logger.exception(
-            "OpenAI comparison error: candidate_a=%s candidate_b=%s",
-            request.candidate_a_id,
-            request.candidate_b_id,
-        )
-        raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
-            detail="Could not analyze proposal details",
-        ) from error
+    percentages_a = material_a.scores.as_list()
+    percentages_b = material_b.scores.as_list()
 
     themes = [
         ThemeComparisonResponse(

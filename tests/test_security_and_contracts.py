@@ -5,7 +5,7 @@ from app.config import Settings, get_settings
 from app.answering import GeneratedAnswer
 from app.embeddings import EmbeddedChunk
 from app.main import app
-from app.models import ProposalDocument, RetrievedChunk
+from app.models import DocumentAnalysisScores, ProposalDocument, RetrievedChunk
 from app.pdf_processing import ProposalChunk
 from app.repositories import get_document_repository
 
@@ -22,8 +22,13 @@ class FakeDocumentRepository:
             created_at="2026-08-02T12:00:00Z",
         )
 
-    def replace_chunks(
-        self, document_id: int, chunks: list[EmbeddedChunk]
+    def replace_chunks_and_analysis(
+        self,
+        document_id: int,
+        chunks: list[EmbeddedChunk],
+        scores: DocumentAnalysisScores,
+        analysis_model: str,
+        analysis_version: str,
     ) -> None:
         return None
 
@@ -94,6 +99,19 @@ def test_valid_secret_reaches_process_handler(
                 for chunk in chunks
             ]
 
+    class FakeComparisonService:
+        async def analyze(
+            self, chunks: list[ProposalChunk]
+        ) -> DocumentAnalysisScores:
+            return DocumentAnalysisScores(
+                economy=20,
+                health=20,
+                education=20,
+                security=20,
+                social=20,
+                infrastructure=20,
+            )
+
     monkeypatch.setattr("app.main.download_pdf", fake_download_pdf)
     monkeypatch.setattr(
         "app.main.extract_and_chunk_pdf",
@@ -102,6 +120,10 @@ def test_valid_secret_reaches_process_handler(
     monkeypatch.setattr(
         "app.main.create_embedding_service",
         lambda settings: FakeEmbeddingService(),
+    )
+    monkeypatch.setattr(
+        "app.main.create_comparison_service",
+        lambda settings: FakeComparisonService(),
     )
 
     response = client.post(
