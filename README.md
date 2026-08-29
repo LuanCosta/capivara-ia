@@ -102,7 +102,7 @@ ele nunca deve estar no aplicativo Android.
 
 ## Comparação temática
 
-`POST /compare` compara a distribuição aproximada do conteúdo de dois planos.
+`POST /compare` mede o detalhamento das propostas em seis temas fixos.
 Os identificadores são sempre valores de `candidates.id`, nunca números
 eleitorais.
 
@@ -113,13 +113,12 @@ eleitorais.
 }
 ```
 
-A rota usa os embeddings já armazenados nos chunks. Somente as descrições dos
-seis temas são transformadas em embeddings durante a comparação; os documentos
-completos não são enviados novamente ao modelo generativo. Cada chunk com
-classificação suficientemente clara contribui conforme seu tamanho textual. O
-arredondamento final garante que os seis percentuais de cada candidato somem
-exatamente 100.
+A rota seleciona trechos distribuídos ao longo de cada documento e analisa os
+planos separadamente. O nome e o partido do candidato não são enviados no prompt.
+Os temas continuam sendo Economia, Saúde, Educação, Segurança, Social e
+Infraestrutura, mantendo o contrato consumido pelo Android.
 
-Os temas fixos são Economia, Saúde, Educação, Segurança, Social e
-Infraestrutura. O resultado mede presença relativa de conteúdo, não qualidade,
-viabilidade ou mérito político das propostas.
+Em cada tema, o percentual estima o detalhamento explícito sobre fonte de recursos,
+custo, prazo, responsável, caminho legal e instrumento de execução. Os índices são
+independentes e não precisam somar 100%. O resultado não mede qualidade, resultado
+futuro ou mérito político.

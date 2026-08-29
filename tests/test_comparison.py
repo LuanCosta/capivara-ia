@@ -2,10 +2,10 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.comparison import (
+    ANALYSIS_INSTRUCTIONS,
     ComparisonAnalysisError,
+    DocumentReadinessScores,
     THEMES,
-    ThemeComparisonService,
-    calculate_integer_percentages,
 )
 from app.config import Settings, get_settings
 from app.main import app
@@ -173,54 +173,30 @@ def test_compare_returns_bad_gateway_when_openai_fails(
 
     assert response.status_code == 502
     assert response.json() == {
-        "detail": "Could not analyze comparison themes"
+        "detail": "Could not analyze proposal details"
     }
 
 
-def test_comparison_percentages_sum_exactly_100() -> None:
-    percentages = calculate_integer_percentages([3, 3, 3, 3, 3, 2])
-
-    assert sum(percentages) == 100
-    assert all(0 <= percentage <= 100 for percentage in percentages)
-
-
-def test_ambiguous_chunk_is_distributed_instead_of_discarded() -> None:
-    class UnusedEmbeddingService:
-        async def embed_texts(self, texts: list[str]) -> list[list[float]]:
-            raise AssertionError("Embedding generation is not used by _analyze")
-
-    material = _material(13).model_copy(
-        update={
-            "chunks": [
-                ProcessedChunk(
-                    id=1,
-                    document_id=1,
-                    content="x" * 100,
-                    embedding=[1.0, 0.99, 0.0, 0.0, 0.0, 0.0],
-                )
-            ]
-        }
-    )
-    theme_embeddings = [
-        [1.0 if index == theme_index else 0.0 for index in range(6)]
-        for theme_index in range(6)
-    ]
-
-    percentages = ThemeComparisonService(UnusedEmbeddingService())._analyze(
-        material,
-        theme_embeddings,
+def test_document_scores_are_independent_and_do_not_need_to_sum_100() -> None:
+    scores = DocumentReadinessScores(
+        economy=20,
+        health=10,
+        education=30,
+        security=40,
+        social=15,
+        infrastructure=50,
     )
 
-    assert percentages[0] >= 45
-    assert percentages[1] >= 40
-    assert all(percentage >= 1 for percentage in percentages)
-    assert sum(percentages) == 100
+    assert scores.as_list() == [20, 10, 30, 40, 15, 50]
+    assert sum(scores.as_list()) == 165
 
 
-def test_rounding_preserves_real_zero_and_positive_weights() -> None:
-    percentages = calculate_integer_percentages([100.0, 0.01, 0, 0, 0, 0])
+def test_analysis_prompt_forbids_external_knowledge_and_candidate_comparison() -> None:
+    normalized = ANALYSIS_INSTRUCTIONS.lower()
 
-    assert percentages == [99, 1, 0, 0, 0, 0]
+    assert "não use conhecimento externo" in normalized
+    assert "não compare candidatos" in normalized
+    assert "não precisam somar 100" in normalized
 
 
 def test_compare_returns_exactly_the_six_expected_themes(
@@ -236,5 +212,5 @@ def test_compare_returns_exactly_the_six_expected_themes(
     themes = response.json()["themes"]
     assert [theme["key"] for theme in themes] == EXPECTED_THEME_KEYS
     assert [theme.key for theme in THEMES] == EXPECTED_THEME_KEYS
-    assert sum(theme["candidateAPercent"] for theme in themes) == 100
-    assert sum(theme["candidateBPercent"] for theme in themes) == 100
+    assert all(0 <= theme["candidateAPercent"] <= 100 for theme in themes)
+    assert all(0 <= theme["candidateBPercent"] <= 100 for theme in themes)

@@ -200,7 +200,7 @@ async def compare(
     ],
     settings: Annotated[Settings, Depends(get_settings)],
 ) -> CompareResponse:
-    """Compara somente a distribuicao tematica de dois planos processados."""
+    """Mede o detalhamento de execução de dois planos processados."""
 
     logger.info(
         "Starting proposal comparison: candidate_a=%s candidate_b=%s",
@@ -256,7 +256,7 @@ async def compare(
         )
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
-            detail="Could not analyze comparison themes",
+            detail="Could not analyze proposal details",
         ) from error
 
     themes = [
