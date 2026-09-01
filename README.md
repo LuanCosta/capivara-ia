@@ -96,9 +96,9 @@ fly status
 Invoke-RestMethod -Uri "https://SEU-APP.fly.dev/health"
 ```
 
-As rotas `/documents/{document_id}/process` e `/ask` exigem o cabeçalho
-`X-Internal-Secret`. O BFF Ktor deve obter esse segredo no ambiente do servidor;
-ele nunca deve estar no aplicativo Android.
+As rotas `/documents/{document_id}/process`, `/ask`, `/compare` e
+`/news/questions` exigem o cabeçalho `X-Internal-Secret`. O BFF Ktor deve obter
+esse segredo no ambiente do servidor; ele nunca deve estar no aplicativo Android.
 
 ## Comparação temática
 
@@ -122,8 +122,9 @@ eleitorais.
 }
 ```
 
-A rota seleciona trechos distribuídos ao longo de cada documento e analisa os
-planos separadamente. O nome e o partido do candidato não são enviados no prompt.
+Durante o processamento, o serviço seleciona trechos distribuídos ao longo de
+cada documento e analisa cada plano separadamente. O nome e o partido do
+candidato não são enviados no prompt. A rota `/compare` apenas lê os índices.
 Os temas continuam sendo Economia, Saúde, Educação, Segurança, Social e
 Infraestrutura, mantendo o contrato consumido pelo Android.
 
@@ -131,3 +132,17 @@ Em cada tema, o percentual estima o detalhamento explícito sobre fonte de recur
 custo, prazo, responsável, caminho legal e instrumento de execução. Os índices são
 independentes e não precisam somar 100%. O resultado não mede qualidade, resultado
 futuro ou mérito político.
+
+## Explicação de notícias
+
+`POST /news/questions` recebe do BFF todo o conteúdo necessário para explicar
+uma notícia ou identificar as pessoas citadas. O Python não consulta a internet,
+não acessa `feed_explanations` e não salva a resposta; o cache permanece no BFF.
+
+Tipos aceitos:
+
+- `EXPLAIN_NEWS`: retorna uma explicação simples em `answer` e `people` vazio.
+- `PEOPLE_MENTIONED`: retorna `answer` nulo e uma lista estruturada em `people`.
+
+O serviço utiliza Structured Outputs com modelos Pydantic e a mesma variável
+`OPENAI_RESPONSE_MODEL` usada pelas demais respostas textuais.

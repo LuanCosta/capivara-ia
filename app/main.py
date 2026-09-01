@@ -28,6 +28,8 @@ from app.models import (
     SourceResponse,
     ThemeComparisonResponse,
 )
+from app.news_models import NewsQuestionRequest, NewsQuestionResponse
+from app.news_service import NewsQuestionError, create_news_question_service
 from app.pdf_processing import (
     PdfDownloadError,
     PdfProcessingError,
@@ -235,6 +237,44 @@ async def ask(
         answer=generated.answer,
         sources=sources,
     )
+
+
+@app.post(
+    "/news/questions",
+    response_model=NewsQuestionResponse,
+    dependencies=[Depends(require_internal_secret)],
+)
+async def answer_news_question(
+    request: NewsQuestionRequest,
+    settings: Annotated[Settings, Depends(get_settings)],
+) -> NewsQuestionResponse:
+    """Explica uma notícia usando exclusivamente os dados enviados pelo BFF."""
+
+    logger.info(
+        "Starting news question: feed_id=%s question_type=%s",
+        request.feed_id,
+        request.question_type.value,
+    )
+    try:
+        service = create_news_question_service(settings)
+        response = await service.answer(request)
+    except NewsQuestionError as error:
+        logger.exception(
+            "OpenAI news question failed: feed_id=%s question_type=%s",
+            request.feed_id,
+            request.question_type.value,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Could not answer news question",
+        ) from error
+
+    logger.info(
+        "News question completed: feed_id=%s question_type=%s",
+        request.feed_id,
+        request.question_type.value,
+    )
+    return response
 
 
 @app.post(
