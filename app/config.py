@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     internal_api_secret: str = Field(min_length=16, repr=False)
     openai_embedding_model: str = "text-embedding-3-small"
     openai_response_model: str = "gpt-4.1-mini"
+    openai_legislative_timeout_seconds: float = Field(default=30.0, ge=5, le=120)
 
     model_config = SettingsConfigDict(
         env_file=".env",

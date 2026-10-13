@@ -28,6 +28,15 @@ from app.models import (
     SourceResponse,
     ThemeComparisonResponse,
 )
+from app.legislative_models import (
+    LegislativeVoteExplanationRequest,
+    LegislativeVoteExplanationResponse,
+)
+from app.legislative_service import (
+    LegislativeExplanationError,
+    LegislativeExplanationTimeoutError,
+    create_legislative_explanation_service,
+)
 from app.news_models import NewsQuestionRequest, NewsQuestionResponse
 from app.news_service import NewsQuestionError, create_news_question_service
 from app.pdf_processing import (
@@ -273,6 +282,55 @@ async def answer_news_question(
         "News question completed: feed_id=%s question_type=%s",
         request.feed_id,
         request.question_type.value,
+    )
+    return response
+
+
+@app.post(
+    "/legislative/votes/explain",
+    response_model=LegislativeVoteExplanationResponse,
+    dependencies=[Depends(require_internal_secret)],
+)
+async def explain_legislative_vote(
+    request: LegislativeVoteExplanationRequest,
+    settings: Annotated[Settings, Depends(get_settings)],
+) -> LegislativeVoteExplanationResponse:
+    """Explica dados oficiais enviados pelo backend sem acessar o banco."""
+
+    logger.info(
+        "Starting legislative vote explanation: house=%s voting_id=%s proposals=%s",
+        request.house.value,
+        request.voting_id,
+        len(request.proposals),
+    )
+    try:
+        service = create_legislative_explanation_service(settings)
+        response = await service.explain(request)
+    except LegislativeExplanationTimeoutError as error:
+        logger.warning(
+            "Legislative vote explanation timed out: house=%s voting_id=%s",
+            request.house.value,
+            request.voting_id,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+            detail="Legislative vote explanation timed out",
+        ) from error
+    except LegislativeExplanationError as error:
+        logger.exception(
+            "Legislative vote explanation failed: house=%s voting_id=%s",
+            request.house.value,
+            request.voting_id,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Could not explain legislative vote",
+        ) from error
+
+    logger.info(
+        "Legislative vote explanation completed: house=%s voting_id=%s",
+        request.house.value,
+        request.voting_id,
     )
     return response
 

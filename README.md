@@ -96,8 +96,9 @@ fly status
 Invoke-RestMethod -Uri "https://SEU-APP.fly.dev/health"
 ```
 
-As rotas `/documents/{document_id}/process`, `/ask`, `/compare` e
-`/news/questions` exigem o cabeçalho `X-Internal-Secret`. O BFF Ktor deve obter
+As rotas `/documents/{document_id}/process`, `/ask`, `/compare`,
+`/news/questions` e `/legislative/votes/explain` exigem o cabeçalho
+`X-Internal-Secret`. O BFF Ktor deve obter
 esse segredo no ambiente do servidor; ele nunca deve estar no aplicativo Android.
 
 ## Comparação temática
@@ -146,3 +147,14 @@ Tipos aceitos:
 
 O serviço utiliza Structured Outputs com modelos Pydantic e a mesma variável
 `OPENAI_RESPONSE_MODEL` usada pelas demais respostas textuais.
+
+## Explicação de votações legislativas
+
+`POST /legislative/votes/explain` recebe dados oficiais já coletados e
+normalizados pelo backend e devolve uma explicação curta e estruturada. Essa rota
+também exige `X-Internal-Secret`, não acessa o Supabase e não persiste respostas.
+
+O timeout da chamada à OpenAI é configurado por
+`OPENAI_LEGISLATIVE_TIMEOUT_SECONDS` (padrão: 30 segundos). O contrato completo,
+exemplos, erros e estratégia de cache/retry do backend estão em
+[`docs/legislative-vote-explanations.md`](docs/legislative-vote-explanations.md).
