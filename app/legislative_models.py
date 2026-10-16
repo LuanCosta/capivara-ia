@@ -25,6 +25,15 @@ class VotingObjectType(str, Enum):
     UNKNOWN = "UNKNOWN"
 
 
+class LegislativeImpactDirection(str, Enum):
+    """Direção possível do impacto, sem avaliação partidária ou recomendação."""
+
+    POSSIBLE_BENEFIT = "POSSIBLE_BENEFIT"
+    POSSIBLE_COST = "POSSIBLE_COST"
+    MIXED = "MIXED"
+    UNCERTAIN = "UNCERTAIN"
+
+
 class LegislativeProposalInput(BaseModel):
     """Proposta oficial relacionada à votação, sem buscar dados externos."""
 
@@ -69,6 +78,21 @@ class OriginalVotingResultInput(BaseModel):
     code: str | None = Field(default=None, max_length=100)
     description: str | None = Field(default=None, max_length=4_000)
     totals: VotingTotalsInput | None = None
+
+
+class LegislativeAffectedProfile(BaseModel):
+    """Perfil hipotético sustentado pelas propostas oficiais recebidas."""
+
+    model_config = ConfigDict(populate_by_name=True, str_strip_whitespace=True)
+
+    profile: str = Field(min_length=1, max_length=120)
+    possible_impact: str = Field(
+        alias="possibleImpact",
+        min_length=1,
+        max_length=400,
+    )
+    impact_direction: LegislativeImpactDirection = Field(alias="impactDirection")
+    conditions: str | None = Field(default=None, max_length=300)
 
 
 class LegislativeVoteExplanationRequest(BaseModel):
@@ -136,6 +160,11 @@ class LegislativeVoteExplanationResponse(BaseModel):
     limitations: list[Annotated[str, Field(min_length=1, max_length=1_000)]] = Field(
         default_factory=list,
         max_length=12,
+    )
+    affected_profiles: list[LegislativeAffectedProfile] = Field(
+        alias="affectedProfiles",
+        default_factory=list,
+        max_length=3,
     )
     explanation_version: str = Field(
         alias="explanationVersion",

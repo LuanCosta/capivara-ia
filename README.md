@@ -145,6 +145,9 @@ Tipos aceitos:
 
 - `EXPLAIN_NEWS`: retorna uma explicação simples em `answer` e `people` vazio.
 - `PEOPLE_MENTIONED`: retorna `answer` nulo e uma lista estruturada em `people`.
+- `HOW_IT_AFFECTS_ME`: retorna um resumo curto e até três perfis hipotéticos em
+  `affectedProfiles`, com direção do impacto, condições e limitações. Critérios
+  numéricos só podem ser usados quando estiverem presentes na notícia recebida.
 
 O serviço utiliza Structured Outputs com modelos Pydantic e a mesma variável
 `OPENAI_RESPONSE_MODEL` usada pelas demais respostas textuais.
@@ -164,8 +167,10 @@ resultado, vínculos com proposições, abertura, órgão, evento, referências 
 `rawMetadata`.
 
 `POST /legislative/votes/explain` recebe dados oficiais já coletados e
-normalizados pelo backend e devolve uma explicação curta e estruturada. Essa rota
-também exige `X-Internal-Secret`, não acessa o Supabase e não persiste respostas.
+normalizados pelo backend e devolve uma explicação curta e estruturada, incluindo
+até três perfis em `affectedProfiles` para a seção "Como isso pode me impactar?".
+Essa rota também exige `X-Internal-Secret`, não acessa o Supabase e não persiste
+respostas.
 
 O timeout da chamada à OpenAI é configurado por
 `OPENAI_LEGISLATIVE_TIMEOUT_SECONDS` (padrão: 30 segundos). O contrato completo,

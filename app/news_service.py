@@ -6,6 +6,7 @@ from pydantic import ValidationError
 from app.config import Settings
 from app.news_models import (
     ExplainNewsOutput,
+    HowItAffectsMeOutput,
     NewsQuestionRequest,
     NewsQuestionResponse,
     NewsQuestionType,
@@ -13,6 +14,7 @@ from app.news_models import (
 )
 from app.news_prompts import (
     build_explain_news_prompt,
+    build_how_it_affects_me_prompt,
     build_people_mentioned_prompt,
 )
 
@@ -43,9 +45,12 @@ class NewsQuestionService:
         if request.question_type is NewsQuestionType.EXPLAIN_NEWS:
             prompt = build_explain_news_prompt(request)
             output_type = ExplainNewsOutput
-        else:
+        elif request.question_type is NewsQuestionType.PEOPLE_MENTIONED:
             prompt = build_people_mentioned_prompt(request)
             output_type = PeopleMentionedOutput
+        else:
+            prompt = build_how_it_affects_me_prompt(request)
+            output_type = HowItAffectsMeOutput
 
         try:
             response = await self._client.responses.parse(

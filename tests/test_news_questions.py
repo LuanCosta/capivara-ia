@@ -1,9 +1,14 @@
+import asyncio
+
 import pytest
 from fastapi.testclient import TestClient
 
 from app.config import Settings, get_settings
 from app.main import app
 from app.news_models import (
+    ImpactDirection,
+    HowItAffectsMeOutput,
+    NewsAffectedProfileResponse,
     NewsPersonResponse,
     NewsQuestionRequest,
     NewsQuestionResponse,
@@ -11,9 +16,10 @@ from app.news_models import (
 )
 from app.news_prompts import (
     build_explain_news_prompt,
+    build_how_it_affects_me_prompt,
     build_people_mentioned_prompt,
 )
-from app.news_service import NewsQuestionError
+from app.news_service import NewsQuestionError, NewsQuestionService
 
 
 SECRET = "test-internal-secret"
@@ -39,16 +45,31 @@ class FakeNewsQuestionService:
                 answer="A notícia relata um acontecimento de forma simples.",
                 people=[],
             )
+        if request.question_type is NewsQuestionType.PEOPLE_MENTIONED:
+            return NewsQuestionResponse(
+                title="Pessoas citadas",
+                answer=None,
+                people=[
+                    NewsPersonResponse(
+                        name="Pessoa citada",
+                        description="Descrição disponível na notícia.",
+                        roleInNews="Participou do acontecimento relatado.",
+                    )
+                ],
+            )
         return NewsQuestionResponse(
-            title="Pessoas citadas",
-            answer=None,
-            people=[
-                NewsPersonResponse(
-                    name="Pessoa citada",
-                    description="Descrição disponível na notícia.",
-                    roleInNews="Participou do acontecimento relatado.",
+            title="Como isso pode me impactar?",
+            answer="A notícia pode afetar grupos que atendam aos critérios descritos.",
+            people=[],
+            affectedProfiles=[
+                NewsAffectedProfileResponse(
+                    profile="Pessoa com bens acima do limite informado",
+                    possibleImpact="Poderá ter uma nova cobrança.",
+                    impactDirection=ImpactDirection.POSSIBLE_COST,
+                    conditions="Se a medida for aprovada e entrar em vigor.",
                 )
             ],
+            limitations=["A notícia não informa quando a medida entraria em vigor."],
         )
 
 
@@ -165,6 +186,36 @@ def test_people_mentioned_accepts_empty_list(
     assert response.json()["answer"] is None
 
 
+def test_how_it_affects_me_returns_short_structured_profiles(
+    client: TestClient,
+) -> None:
+    body = {**BASE_BODY, "questionType": "HOW_IT_AFFECTS_ME"}
+
+    response = client.post(
+        "/news/questions",
+        headers={"X-Internal-Secret": SECRET},
+        json=body,
+    )
+
+    assert response.status_code == 200
+    assert response.json() == {
+        "title": "Como isso pode me impactar?",
+        "answer": "A notícia pode afetar grupos que atendam aos critérios descritos.",
+        "people": [],
+        "affectedProfiles": [
+            {
+                "profile": "Pessoa com bens acima do limite informado",
+                "possibleImpact": "Poderá ter uma nova cobrança.",
+                "impactDirection": "POSSIBLE_COST",
+                "conditions": "Se a medida for aprovada e entrar em vigor.",
+            }
+        ],
+        "limitations": [
+            "A notícia não informa quando a medida entraria em vigor."
+        ],
+    }
+
+
 def test_news_question_returns_bad_gateway_when_openai_fails(
     client: TestClient, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -195,8 +246,49 @@ def test_news_prompts_are_separate_and_forbid_external_knowledge() -> None:
             update={"question_type": NewsQuestionType.PEOPLE_MENTIONED}
         )
     )
+    impact_prompt = build_how_it_affects_me_prompt(
+        request.model_copy(
+            update={"question_type": NewsQuestionType.HOW_IT_AFFECTS_ME}
+        )
+    )
 
     assert "Explique o que aconteceu" in explain_prompt
     assert "Não pesquise" in explain_prompt
     assert "Remova nomes duplicados" in people_prompt
     assert "não atribua cargos não confirmados" in people_prompt
+    assert "no máximo três perfis" in impact_prompt
+    assert "Só mencione critérios numéricos" in impact_prompt
+    assert "Não pesquise" in impact_prompt
+
+
+def test_news_service_selects_impact_structured_output() -> None:
+    class FakeResponses:
+        def __init__(self) -> None:
+            self.arguments: dict = {}
+
+        async def parse(self, **kwargs: object) -> object:
+            self.arguments = kwargs
+            parsed = HowItAffectsMeOutput(
+                title="Como isso pode me impactar?",
+                answer="Pode afetar o grupo descrito na notícia.",
+                people=[],
+                affectedProfiles=[],
+                limitations=["Os dados não informam o impacto financeiro."],
+            )
+            return type("Response", (), {"output_parsed": parsed})()
+
+    class FakeClient:
+        def __init__(self) -> None:
+            self.responses = FakeResponses()
+
+    fake_client = FakeClient()
+    service = NewsQuestionService(fake_client, "test-model")
+    request = NewsQuestionRequest.model_validate(
+        {**BASE_BODY, "questionType": "HOW_IT_AFFECTS_ME"}
+    )
+
+    result = asyncio.run(service.answer(request))
+
+    assert fake_client.responses.arguments["text_format"] is HowItAffectsMeOutput
+    assert result.title == "Como isso pode me impactar?"
+    assert result.affected_profiles == []

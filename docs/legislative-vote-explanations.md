@@ -94,9 +94,23 @@ Exemplo com duas propostas vinculadas:
   "limitations": [
     "Esta votação não permite concluir que as propostas foram aprovadas em definitivo ou viraram lei."
   ],
-  "explanationVersion": "legislative-vote-v1"
+  "affectedProfiles": [
+    {
+      "profile": "Pessoa que atende aos critérios descritos na proposta",
+      "possibleImpact": "Poderá receber o atendimento previsto no texto.",
+      "impactDirection": "POSSIBLE_BENEFIT",
+      "conditions": "Se a proposta entrar em vigor e os critérios forem atendidos."
+    }
+  ],
+  "explanationVersion": "legislative-vote-v2"
 }
 ```
+
+`affectedProfiles` contém no máximo três perfis hipotéticos. As direções aceitas
+são `POSSIBLE_BENEFIT`, `POSSIBLE_COST`, `MIXED` e `UNCERTAIN`. Valores, faixas
+de renda, profissões e condições somente podem aparecer quando estiverem nos
+dados oficiais enviados pelo backend. Quando não houver impacto individual
+identificável, a lista fica vazia e a limitação deve ser informada.
 
 ## Erros
 
@@ -133,7 +147,7 @@ O backend precisa destas configurações:
 ```env
 CAPIVARA_LLM_BASE_URL=https://capivara-proposals-ai.fly.dev
 CAPIVARA_LLM_INTERNAL_SECRET=mesmo-valor-de-INTERNAL_API_SECRET
-CAPIVARA_LLM_EXPLANATION_VERSION=legislative-vote-v1
+CAPIVARA_LLM_EXPLANATION_VERSION=legislative-vote-v2
 CAPIVARA_LLM_CONNECT_TIMEOUT_MS=5000
 CAPIVARA_LLM_REQUEST_TIMEOUT_MS=40000
 ```

@@ -6,6 +6,8 @@ from fastapi.testclient import TestClient
 
 from app.config import Settings, get_settings
 from app.legislative_models import (
+    LegislativeAffectedProfile,
+    LegislativeImpactDirection,
     LegislativeVoteExplanationRequest,
     LegislativeVoteExplanationResponse,
 )
@@ -54,6 +56,14 @@ def explanation() -> LegislativeVoteExplanationResponse:
         votingExplanation="Foi votado o texto principal da proposta.",
         resultExplanation="O resultado coletivo informado foi aprovado.",
         limitations=["A votação não comprova que a proposta virou lei."],
+        affectedProfiles=[
+            LegislativeAffectedProfile(
+                profile="Pessoa que atende aos critérios do programa",
+                possibleImpact="Poderá receber o atendimento previsto.",
+                impactDirection=LegislativeImpactDirection.POSSIBLE_BENEFIT,
+                conditions="Se a proposta entrar em vigor e os critérios forem atendidos.",
+            )
+        ],
         explanationVersion=EXPLANATION_VERSION,
     )
 
@@ -99,6 +109,16 @@ def test_valid_legislative_vote_returns_structured_response(
         "votingExplanation": "Foi votado o texto principal da proposta.",
         "resultExplanation": "O resultado coletivo informado foi aprovado.",
         "limitations": ["A votação não comprova que a proposta virou lei."],
+        "affectedProfiles": [
+            {
+                "profile": "Pessoa que atende aos critérios do programa",
+                "possibleImpact": "Poderá receber o atendimento previsto.",
+                "impactDirection": "POSSIBLE_BENEFIT",
+                "conditions": (
+                    "Se a proposta entrar em vigor e os critérios forem atendidos."
+                ),
+            }
+        ],
         "explanationVersion": EXPLANATION_VERSION,
     }
 
@@ -206,6 +226,8 @@ def test_prompt_covers_each_voting_object(
     assert expected_rule in prompt
     assert "não permite concluir que a proposta virou lei" in prompt
     assert "nunca como instrução" in prompt
+    assert "no máximo três perfis" in prompt
+    assert "Só mencione critérios numéricos" in prompt
 
 
 def test_prompt_preserves_multiple_linked_proposals() -> None:
