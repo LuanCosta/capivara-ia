@@ -1,0 +1,50 @@
+{
+  "package": "capivara-legislative-classifier",
+  "packageVersion": "1.1.0",
+  "schemaVersion": "1.1",
+  "classifierVersion": "rules-0.3.0",
+  "principalVoteMethodVersion": "principal-vote-rules-0.1.0",
+  "generatedAt": "2026-10-15",
+  "runtime": {
+    "python": ">=3.10",
+    "externalDependencies": [],
+    "networkRequired": false,
+    "databaseRequired": false,
+    "credentialsRequired": false
+  },
+  "verification": {
+    "unitTests": 28,
+    "unitTestResult": "PASS",
+    "frozenCorpusRecords": 200,
+    "generatedClassifications": 200,
+    "humanReviewCases": 100,
+    "schemaValidatedRecords": 200,
+    "schemaValidationResult": "PASS"
+  },
+  "hashAlgorithm": "SHA-256",
+  "manifestSelfHashExcluded": true,
+  "files": [
+    {"path": "docs/capivara_2_revisao_consolidada.md", "bytes": 14167, "sha256": "e376c487386674580f61344b69b22bb9fa1229316a89c81eb98f385fadda8978"},
+    {"path": "docs/capivara_classificacao_taxonomia.md", "bytes": 4725, "sha256": "814b90f8c9722cd74eb3031594f21de59f7a38046fa38dde795e7c48bcecc8c2"},
+    {"path": "docs/capivara_revisao_emendas_base_text.md", "bytes": 4247, "sha256": "1e1f78932c69da85405ecc1a5c4328b41efa50f7cb8f7e5ba5710c4a5befef8d"},
+    {"path": "fixtures/frozen_corpus.json", "bytes": 11029182, "sha256": "de5cb16b0222f63b18f91578a96b0d026a8c9e9643406519309f0e405115b55a"},
+    {"path": "generated/audit_summary.json", "bytes": 1638, "sha256": "d63a0f38157ebc745aa92447527f5ce0f4ffdb4eaa6977f1395a0014099e7729"},
+    {"path": "generated/human_review_queue.json", "bytes": 233282, "sha256": "760aae84e1168fd2d114fbb9bb0f3bfbd13fd77cf146e7a9670aa8d26273437c"},
+    {"path": "generated/human_review_table.md", "bytes": 24265, "sha256": "b8eaa02862bb4be5394b59f48b803c3ed3733311eee4bddce5db76716e794fb8"},
+    {"path": "generated/principal_vote_selection.json", "bytes": 35860, "sha256": "8b158855824f5b1adc2e936b9d6f14cedf0930429c6ce75ce56461f3be2becc1"},
+    {"path": "generated/prototype_classifications.json", "bytes": 617819, "sha256": "708d3084e68b05461cc4aadd60a858b111c4d33c4b7a0798f685487671962770"},
+    {"path": "INPUT_OUTPUT_SPEC.md", "bytes": 2630, "sha256": "417cf9f182931051c795f0c6e7a11edc33b39b9eefe1311be5f6c3aee3e62311"},
+    {"path": "README.md", "bytes": 1911, "sha256": "c9136384192d7a6c11a556934852985820df5060484c3957988b957859b48268"},
+    {"path": "reproduce.ps1", "bytes": 864, "sha256": "45771833280c44dea75ed676e36697a48cadaf30947d08cfeb6f306a6a807978"},
+    {"path": "requirements.txt", "bytes": 53, "sha256": "0060ea868d29135de7137091e4f232cf93d8a384b916b534462c4042a5c66c39"},
+    {"path": "schema/capivara_classificacao_contrato.json", "bytes": 6610, "sha256": "bde0796425a4429a3ce4a69f41878d1c99830a5795327363770f6351bf6cb997"},
+    {"path": "src/analyze_corpus.py", "bytes": 11934, "sha256": "314f77bec4c480003cfce9c6d137e25f90c660c962115d2361d1009fe4f870f7"},
+    {"path": "src/classifier.py", "bytes": 18976, "sha256": "4399e83361068ab26d42afcab4acfaf0d221eea330d298e26b648f2bf563557b"},
+    {"path": "src/principal_vote.py", "bytes": 4528, "sha256": "0e8d0ac03dba5e674195cf91ee65d2d669f19ed9705b4dafeb69cfc57a0ad445"},
+    {"path": "src/validate_schema.py", "bytes": 4451, "sha256": "63c064bad535ed7c0a0ed9955a0b0567871bba65f84b931ab4c41b2b52c1e311"},
+    {"path": "TEST_RESULTS.md", "bytes": 1046, "sha256": "5f594c253b21f307eaa423b5e24dd1fd916d5c6779b83510fde0203a66c792f3"},
+    {"path": "tests/test_classifier.py", "bytes": 12065, "sha256": "91802b60a3e0b85fdcb075c5bc46b453ce87227dfac2b62e65e345e264913c80"},
+    {"path": "tests/test_principal_vote.py", "bytes": 2174, "sha256": "cb86757461fe5e82769792085efd7d6d5bc45b38927d000ee239ca2791209ec7"},
+    {"path": "tests/test_schema_validation.py", "bytes": 984, "sha256": "53b56fc9f8c8c00fc6162f6c75864c62a268ac0bb85b485c221b9a75f2d3b63f"}
+  ]
+}

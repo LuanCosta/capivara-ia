@@ -10,7 +10,11 @@ WORKDIR /app
 COPY pyproject.toml ./
 COPY app ./app
 
-RUN pip install --upgrade pip && pip install .
+RUN test -f app/legislative_classification/classifier.py \
+    && test -f app/legislative_classification/principal_vote.py \
+    && test -f app/legislative_classification/capivara_classificacao_contrato.json \
+    && pip install --upgrade pip \
+    && pip install .
 
 EXPOSE 8000
 

@@ -1,0 +1,1030 @@
+{
+  "warning": "Proposta automática para validação humana; não conclui aprovação final, promulgação ou conversão em lei.",
+  "methodVersion": "principal-vote-rules-0.1.0",
+  "selections": [
+    {
+      "proposalId": "1229705",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "1229705-82",
+      "candidateVotingIds": [
+        "1229705-82"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2122125",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2122125-115",
+      "candidateVotingIds": [
+        "2122125-115"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2162116",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2162116-178",
+      "candidateVotingIds": [
+        "2162116-178",
+        "2162116-169"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2190986",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2191208",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2191208-67",
+      "candidateVotingIds": [
+        "2191208-67"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2225432",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2225432-103",
+      "candidateVotingIds": [
+        "2225432-103"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2233802",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2233802-438",
+      "candidateVotingIds": [
+        "2233802-438",
+        "2233802-424"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2234260",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2236186",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2295251",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2318547",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2323657",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2323657-108",
+      "candidateVotingIds": [
+        "2323657-108"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2331573",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2334815",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2347038",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2347038-83",
+      "candidateVotingIds": [
+        "2347038-83"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2348972",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2351176",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2351176-58",
+      "candidateVotingIds": [
+        "2351176-58"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2351227",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2351227-56",
+      "candidateVotingIds": [
+        "2351227-56"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2351506",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2351506-122",
+      "candidateVotingIds": [
+        "2351506-122",
+        "2351506-104"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2355754",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2368697",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2376169",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2379032",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2379032-78",
+      "candidateVotingIds": [
+        "2379032-78"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2382675",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2382675-97",
+      "candidateVotingIds": [
+        "2382675-97"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2417899",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2418774",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2418774-66",
+      "candidateVotingIds": [
+        "2418774-66"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2419128",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2422887",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2423263",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2426763",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2432865",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2433663",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2447259",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2447983",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2447983-57",
+      "candidateVotingIds": [
+        "2447983-57"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2449741",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2461363",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2462004",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2462009",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2465246",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2466097",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2469569",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2469569-38",
+      "candidateVotingIds": [
+        "2469569-38"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2481715",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2482275",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2485383",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2486315",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2486451",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2487399",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2500080",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2500080-330",
+      "candidateVotingIds": [
+        "2500080-330",
+        "2500080-320"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2501880",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2503833",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2503998",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2503998-75",
+      "candidateVotingIds": [
+        "2503998-75"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2525254",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2525620",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2531613",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2539000",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2539048",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2539048-45",
+      "candidateVotingIds": [
+        "2539048-45"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2543171",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2543171-49",
+      "candidateVotingIds": [
+        "2543171-49"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2545792",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2557414",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2557414-32",
+      "candidateVotingIds": [
+        "2557414-32"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2562173",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2562173-30",
+      "candidateVotingIds": [
+        "2562173-30"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2562289",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2562481",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2563330",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2565441",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2565804",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2567351",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2572994",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2578879",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2578879-38",
+      "candidateVotingIds": [
+        "2578879-38"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2580259",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2580259-24",
+      "candidateVotingIds": [
+        "2580259-24"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2581700",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2586419",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2586419-33",
+      "candidateVotingIds": [
+        "2586419-33"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2586587",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2589671",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2589671-49",
+      "candidateVotingIds": [
+        "2589671-49"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2591970",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2591974",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2595984",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2595984-34",
+      "candidateVotingIds": [
+        "2595984-34"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2596596",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2596663",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2598651",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2600127",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2600277",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2600838",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2601040",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2601040-31",
+      "candidateVotingIds": [
+        "2601040-31"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2601990",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2601990-42",
+      "candidateVotingIds": [
+        "2601990-42"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2603342",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2603342-42",
+      "candidateVotingIds": [
+        "2603342-42"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2604314",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2605243",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2606189",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2606313",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2606313-36",
+      "candidateVotingIds": [
+        "2606313-36"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2608575",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2608575-64",
+      "candidateVotingIds": [
+        "2608575-64"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2610975",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2611313",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2611313-31",
+      "candidateVotingIds": [
+        "2611313-31"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2611658",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2611717",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2611717-33",
+      "candidateVotingIds": [
+        "2611717-33"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2611992",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2611992-24",
+      "candidateVotingIds": [
+        "2611992-24"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2612463",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2612908",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2612930",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2613731",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2618047",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2618104",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2618177",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2618177-71",
+      "candidateVotingIds": [
+        "2618177-71"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2624161",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2624161-22",
+      "candidateVotingIds": [
+        "2624161-22"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2626432",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2632245",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2634392",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2634392-23",
+      "candidateVotingIds": [
+        "2634392-23"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2634740",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2634751",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2635476",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2635476-36",
+      "candidateVotingIds": [
+        "2635476-36"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2636281",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2638483",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2639657",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2639657-19",
+      "candidateVotingIds": [
+        "2639657-19"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2639692",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2642095",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2642167",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2642167-20",
+      "candidateVotingIds": [
+        "2642167-20"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2642328",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2642328-21",
+      "candidateVotingIds": [
+        "2642328-21"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2642329",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2642329-22",
+      "candidateVotingIds": [
+        "2642329-22"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2644910",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "2645346",
+      "status": "SELECTED_FOR_HUMAN_VALIDATION",
+      "selectedVotingId": "2645346-18",
+      "candidateVotingIds": [
+        "2645346-18"
+      ],
+      "rationale": "Maior estágio explicitamente comprovado entre decisões principais; a seleção ainda não autoriza publicação."
+    },
+    {
+      "proposalId": "2647400",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "589982",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    },
+    {
+      "proposalId": "947810",
+      "status": "INDETERMINATE",
+      "selectedVotingId": null,
+      "suggestedVotingId": null,
+      "candidateVotingIds": [],
+      "rationale": "Nenhuma decisão principal foi sustentada pelo texto oficial."
+    }
+  ]
+}

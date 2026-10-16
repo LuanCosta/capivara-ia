@@ -1,0 +1,63 @@
+{
+  "corpus": {
+    "records": 200,
+    "uniqueHouseVotingIds": 200,
+    "duplicateHouseVotingIds": 0,
+    "houses": {
+      "CAMARA": 200
+    },
+    "minDate": "2026-02-02",
+    "maxDate": "2026-10-14",
+    "proposalMetadataCount": 122,
+    "proposalReferenceCount": 212,
+    "recordsWithMultipleProposalReferences": 12
+  },
+  "integrity": {
+    "brokenProposalReferences": [],
+    "proposalReferenceVsAffectedMismatches": [],
+    "affectedVsRawMismatches": []
+  },
+  "availability": {
+    "originalApprovalIndicator": {
+      "0": 58,
+      "1": 123,
+      "None": 19
+    },
+    "possibleObjectsEmpty": 10,
+    "registeredEffectsEmpty": 154,
+    "latestVotingOpeningDescriptionNull": 92,
+    "eventIdNull": 1
+  },
+  "prototype": {
+    "votingTypeCounts": {
+      "REQUIREMENT": 46,
+      "SUBSTITUTE_TEXT": 25,
+      "FINAL_WORDING": 20,
+      "AMENDMENT": 16,
+      "BASE_TEXT": 22,
+      "HIGHLIGHT": 20,
+      "OTHER_PROCEDURAL": 1,
+      "URGENCY_REQUEST": 47,
+      "UNKNOWN": 1,
+      "OTHER_SUBSTANTIVE": 2
+    },
+    "textDecisionStatusCounts": {
+      "NOT_TEXT_DECISION": 94,
+      "TEXT_DECISION_CONFIRMED": 82,
+      "TEXT_DECISION_POSSIBLE": 23,
+      "INDETERMINATE": 1
+    },
+    "decisionRoleCounts": {
+      "PROCEDURAL_DECISION": 94,
+      "MAIN_PROPOSAL_DECISION": 48,
+      "PARTIAL_TEXT_DECISION": 54,
+      "INDETERMINATE": 4
+    },
+    "methodCounts": {
+      "RULE_HIGH_PRECISION": 199,
+      "UNCLASSIFIED": 1
+    },
+    "requiresHumanReview": 112,
+    "importantCaveat": "Counts are prototype outputs, not accuracy metrics or human labels."
+  }
+}

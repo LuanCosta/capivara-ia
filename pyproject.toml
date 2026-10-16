@@ -25,5 +25,8 @@ test = [
 [tool.hatch.build.targets.wheel]
 packages = ["app"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"app/legislative_classification/capivara_classificacao_contrato.json" = "app/legislative_classification/capivara_classificacao_contrato.json"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]

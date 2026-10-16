@@ -97,7 +97,8 @@ Invoke-RestMethod -Uri "https://SEU-APP.fly.dev/health"
 ```
 
 As rotas `/documents/{document_id}/process`, `/ask`, `/compare`,
-`/news/questions` e `/legislative/votes/explain` exigem o cabeçalho
+`/news/questions`, `/legislative/votes/classify` e
+`/legislative/votes/explain` exigem o cabeçalho
 `X-Internal-Secret`. O BFF Ktor deve obter
 esse segredo no ambiente do servidor; ele nunca deve estar no aplicativo Android.
 
@@ -149,6 +150,18 @@ O serviço utiliza Structured Outputs com modelos Pydantic e a mesma variável
 `OPENAI_RESPONSE_MODEL` usada pelas demais respostas textuais.
 
 ## Explicação de votações legislativas
+
+`POST /legislative/votes/classify` recebe o registro oficial completo da
+votação e devolve a classificação determinística validada pelo JSON Schema 1.1.
+Essa rota não acessa OpenAI ou Supabase. A resposta informa
+`classifierVersion=rules-0.3.0`, preserva as evidências e mantém a publicação
+bloqueada enquanto não houver validação humana.
+
+O contrato de saída está empacotado em
+`app/legislative_classification/capivara_classificacao_contrato.json`. O corpo
+aceita até 250.000 caracteres e deve incluir `house`, `votingId`, `description`,
+resultado, vínculos com proposições, abertura, órgão, evento, referências e
+`rawMetadata`.
 
 `POST /legislative/votes/explain` recebe dados oficiais já coletados e
 normalizados pelo backend e devolve uma explicação curta e estruturada. Essa rota

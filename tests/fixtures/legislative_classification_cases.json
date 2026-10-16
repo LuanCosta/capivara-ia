@@ -1,0 +1,859 @@
+{
+  "records": [
+    {
+      "house": "CAMARA",
+      "votingId": "2162116-161",
+      "description": "Rejeitado o Requerimento. Sim: 36; N\u00e3o: 409; Total: 445.",
+      "result": {
+        "originalApprovalIndicator": 0
+      },
+      "proposalReferences": [
+        {
+          "id": "2162116",
+          "type": "PEC",
+          "number": 383,
+          "year": 2017,
+          "identification": "PEC 383/2017",
+          "description": "Altera a Constitui\u00e7\u00e3o Federal para garantir recursos m\u00ednimos para o financiamento do Sistema \u00danico de Assist\u00eancia Social (SUAS)",
+          "relation": "STORED_AFFECTED_BINDING",
+          "source": {
+            "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2162116",
+            "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2162116"
+          }
+        }
+      ],
+      "possibleObjects": [],
+      "registeredEffects": [],
+      "affectedProposals": [
+        {
+          "id": 2162116,
+          "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2162116",
+          "siglaTipo": "PEC",
+          "codTipo": 136,
+          "numero": 383,
+          "ano": 2017,
+          "ementa": "Altera a Constitui\u00e7\u00e3o Federal para garantir recursos m\u00ednimos para o financiamento do Sistema \u00danico de Assist\u00eancia Social (SUAS)",
+          "dataApresentacao": "2017-11-09T17:14"
+        }
+      ],
+      "latestVotingOpening": {
+        "description": null,
+        "registrationDateTime": null
+      },
+      "event": {
+        "id": "81545",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/eventos/81545"
+      },
+      "organ": {
+        "id": "180",
+        "acronym": "PLEN",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/orgaos/180"
+      },
+      "officialReferences": [
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2162116-161",
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2162116-161/votos",
+        "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2162116",
+        "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2162116"
+      ],
+      "rawMetadata": {
+        "officialResponseFetchedAt": "2026-10-15T22:24:13.163877+00:00",
+        "storedBindings": [
+          {
+            "proposalId": "2162116",
+            "voting": {
+              "id": "2162116-161",
+              "votedOn": "2026-04-08",
+              "description": "Rejeitado o Requerimento. Sim: 36; N\u00e3o: 409; Total: 445.",
+              "originalResult": "0",
+              "secret": false,
+              "source": {
+                "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/votacoes/2162116-161/votos",
+                "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2162116"
+              },
+              "totalRecordedVotes": 446,
+              "votesOffset": 0,
+              "votesLimit": null,
+              "nextVotesOffset": null,
+              "originalResultDescription": null,
+              "voteTotals": {
+                "for": 36,
+                "against": 409,
+                "abstention": 0,
+                "obstruction": 0,
+                "presence": 0,
+                "president": 0,
+                "absence": 0,
+                "other": 1,
+                "totalVotes": 445,
+                "recordCount": 446,
+                "complete": false,
+                "source": "INDIVIDUAL_RECORDS"
+              },
+              "individualVotesComplete": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "house": "CAMARA",
+      "votingId": "2162116-169",
+      "description": "Aprovada, em primeiro turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00ba 383, de 2017, na forma da Emenda Aglutinativa n\u00ba 2. Sim: 464; N\u00e3o: 16; Total: 480.",
+      "result": {
+        "originalApprovalIndicator": 1
+      },
+      "proposalReferences": [
+        {
+          "id": "2162116",
+          "type": "PEC",
+          "number": 383,
+          "year": 2017,
+          "identification": "PEC 383/2017",
+          "description": "Altera a Constitui\u00e7\u00e3o Federal para garantir recursos m\u00ednimos para o financiamento do Sistema \u00danico de Assist\u00eancia Social (SUAS)",
+          "relation": "STORED_AFFECTED_BINDING",
+          "source": {
+            "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2162116",
+            "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2162116"
+          }
+        }
+      ],
+      "possibleObjects": [],
+      "registeredEffects": [],
+      "affectedProposals": [
+        {
+          "id": 2162116,
+          "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2162116",
+          "siglaTipo": "PEC",
+          "codTipo": 136,
+          "numero": 383,
+          "ano": 2017,
+          "ementa": "Altera a Constitui\u00e7\u00e3o Federal para garantir recursos m\u00ednimos para o financiamento do Sistema \u00danico de Assist\u00eancia Social (SUAS)",
+          "dataApresentacao": "2017-11-09T17:14"
+        }
+      ],
+      "latestVotingOpening": {
+        "description": "Vota\u00e7\u00e3o, em primeiro turno, da Emenda Aglutinativa n\u00ba 2.",
+        "registrationDateTime": "2026-04-08T19:18:00"
+      },
+      "event": {
+        "id": "81545",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/eventos/81545"
+      },
+      "organ": {
+        "id": "180",
+        "acronym": "PLEN",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/orgaos/180"
+      },
+      "officialReferences": [
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2162116-169",
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2162116-169/votos",
+        "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2162116",
+        "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2162116"
+      ],
+      "rawMetadata": {
+        "officialResponseFetchedAt": "2026-10-15T22:24:13.366441+00:00",
+        "storedBindings": [
+          {
+            "proposalId": "2162116",
+            "voting": {
+              "id": "2162116-169",
+              "votedOn": "2026-04-08",
+              "description": "Aprovada, em primeiro turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00ba 383, de 2017, na forma da Emenda Aglutinativa n\u00ba 2. Sim: 464; N\u00e3o: 16; Total: 480.",
+              "originalResult": "1",
+              "secret": false,
+              "source": {
+                "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/votacoes/2162116-169/votos",
+                "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2162116"
+              },
+              "totalRecordedVotes": 480,
+              "votesOffset": 0,
+              "votesLimit": null,
+              "nextVotesOffset": null,
+              "originalResultDescription": null,
+              "voteTotals": {
+                "for": 464,
+                "against": 16,
+                "abstention": 0,
+                "obstruction": 0,
+                "presence": 0,
+                "president": 0,
+                "absence": 0,
+                "other": 0,
+                "totalVotes": 480,
+                "recordCount": 480,
+                "complete": true,
+                "source": "INDIVIDUAL_RECORDS"
+              },
+              "individualVotesComplete": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "house": "CAMARA",
+      "votingId": "2162116-178",
+      "description": "Aprovada, em segundo turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00b0 383, de 2017. Sim: 444; N\u00e3o: 12; Total: 456.",
+      "result": {
+        "originalApprovalIndicator": 1
+      },
+      "proposalReferences": [
+        {
+          "id": "2162116",
+          "type": "PEC",
+          "number": 383,
+          "year": 2017,
+          "identification": "PEC 383/2017",
+          "description": "Altera a Constitui\u00e7\u00e3o Federal para garantir recursos m\u00ednimos para o financiamento do Sistema \u00danico de Assist\u00eancia Social (SUAS)",
+          "relation": "STORED_AFFECTED_BINDING",
+          "source": {
+            "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2162116",
+            "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2162116"
+          }
+        }
+      ],
+      "possibleObjects": [],
+      "registeredEffects": [],
+      "affectedProposals": [
+        {
+          "id": 2162116,
+          "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2162116",
+          "siglaTipo": "PEC",
+          "codTipo": 136,
+          "numero": 383,
+          "ano": 2017,
+          "ementa": "Altera a Constitui\u00e7\u00e3o Federal para garantir recursos m\u00ednimos para o financiamento do Sistema \u00danico de Assist\u00eancia Social (SUAS)",
+          "dataApresentacao": "2017-11-09T17:14"
+        }
+      ],
+      "latestVotingOpening": {
+        "description": "Vota\u00e7\u00e3o em segundo turno.",
+        "registrationDateTime": "2026-04-28T20:53:32"
+      },
+      "event": {
+        "id": "81785",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/eventos/81785"
+      },
+      "organ": {
+        "id": "180",
+        "acronym": "PLEN",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/orgaos/180"
+      },
+      "officialReferences": [
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2162116-178",
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2162116-178/votos",
+        "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2162116",
+        "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2162116"
+      ],
+      "rawMetadata": {
+        "officialResponseFetchedAt": "2026-10-15T22:24:13.366441+00:00",
+        "storedBindings": [
+          {
+            "proposalId": "2162116",
+            "voting": {
+              "id": "2162116-178",
+              "votedOn": "2026-04-28",
+              "description": "Aprovada, em segundo turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00b0 383, de 2017. Sim: 444; N\u00e3o: 12; Total: 456.",
+              "originalResult": "1",
+              "secret": false,
+              "source": {
+                "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/votacoes/2162116-178/votos",
+                "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2162116"
+              },
+              "totalRecordedVotes": 456,
+              "votesOffset": 0,
+              "votesLimit": null,
+              "nextVotesOffset": null,
+              "originalResultDescription": null,
+              "voteTotals": {
+                "for": 444,
+                "against": 12,
+                "abstention": 0,
+                "obstruction": 0,
+                "presence": 0,
+                "president": 0,
+                "absence": 0,
+                "other": 0,
+                "totalVotes": 456,
+                "recordCount": 456,
+                "complete": true,
+                "source": "INDIVIDUAL_RECORDS"
+              },
+              "individualVotesComplete": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "house": "CAMARA",
+      "votingId": "2233802-424",
+      "description": "Aprovada, em primeiro turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00ba 221, de 2019. Sim: 472; N\u00e3o: 22; Total: 494.",
+      "result": {
+        "originalApprovalIndicator": 1
+      },
+      "proposalReferences": [
+        {
+          "id": "2233802",
+          "type": "PEC",
+          "number": 221,
+          "year": 2019,
+          "identification": "PEC 221/2019",
+          "description": "Altera o Art. 7\u00ba inciso XII da constitui\u00e7\u00e3o Federal, reduzindo a jornada de trabalho a 36 horas semanais em 10 anos.",
+          "relation": "STORED_AFFECTED_BINDING",
+          "source": {
+            "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2233802",
+            "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2233802"
+          }
+        }
+      ],
+      "possibleObjects": [],
+      "registeredEffects": [],
+      "affectedProposals": [
+        {
+          "id": 2233802,
+          "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2233802",
+          "siglaTipo": "PEC",
+          "codTipo": 136,
+          "numero": 221,
+          "ano": 2019,
+          "ementa": "Altera o Art. 7\u00ba inciso XII da constitui\u00e7\u00e3o Federal, reduzindo a jornada de trabalho a 36 horas semanais em 10 anos.",
+          "dataApresentacao": "2019-12-11T17:37"
+        }
+      ],
+      "latestVotingOpening": {
+        "description": "Vota\u00e7\u00e3o da Emenda Aglutinativa n\u00ba 1.",
+        "registrationDateTime": "2026-05-27T21:17:41"
+      },
+      "event": {
+        "id": "82310",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/eventos/82310"
+      },
+      "organ": {
+        "id": "180",
+        "acronym": "PLEN",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/orgaos/180"
+      },
+      "officialReferences": [
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2233802-424",
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2233802-424/votos",
+        "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2233802",
+        "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2233802"
+      ],
+      "rawMetadata": {
+        "officialResponseFetchedAt": "2026-10-15T22:24:14.351269+00:00",
+        "storedBindings": [
+          {
+            "proposalId": "2233802",
+            "voting": {
+              "id": "2233802-424",
+              "votedOn": "2026-05-27",
+              "description": "Aprovada, em primeiro turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00ba 221, de 2019. Sim: 472; N\u00e3o: 22; Total: 494.",
+              "originalResult": "1",
+              "secret": false,
+              "source": {
+                "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/votacoes/2233802-424/votos",
+                "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2233802"
+              },
+              "totalRecordedVotes": 495,
+              "votesOffset": 0,
+              "votesLimit": null,
+              "nextVotesOffset": null,
+              "originalResultDescription": null,
+              "voteTotals": {
+                "for": 472,
+                "against": 22,
+                "abstention": 0,
+                "obstruction": 1,
+                "presence": 0,
+                "president": 0,
+                "absence": 0,
+                "other": 0,
+                "totalVotes": 494,
+                "recordCount": 495,
+                "complete": true,
+                "source": "INDIVIDUAL_RECORDS"
+              },
+              "individualVotesComplete": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "house": "CAMARA",
+      "votingId": "2233802-438",
+      "description": "Aprovada, em segundo turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00b0 221, de 2019. . Sim: 461; N\u00e3o: 19; Total: 480.",
+      "result": {
+        "originalApprovalIndicator": 1
+      },
+      "proposalReferences": [
+        {
+          "id": "2233802",
+          "type": "PEC",
+          "number": 221,
+          "year": 2019,
+          "identification": "PEC 221/2019",
+          "description": "Altera o Art. 7\u00ba inciso XII da constitui\u00e7\u00e3o Federal, reduzindo a jornada de trabalho a 36 horas semanais em 10 anos.",
+          "relation": "STORED_AFFECTED_BINDING",
+          "source": {
+            "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2233802",
+            "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2233802"
+          }
+        }
+      ],
+      "possibleObjects": [],
+      "registeredEffects": [],
+      "affectedProposals": [
+        {
+          "id": 2233802,
+          "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2233802",
+          "siglaTipo": "PEC",
+          "codTipo": 136,
+          "numero": 221,
+          "ano": 2019,
+          "ementa": "Altera o Art. 7\u00ba inciso XII da constitui\u00e7\u00e3o Federal, reduzindo a jornada de trabalho a 36 horas semanais em 10 anos.",
+          "dataApresentacao": "2019-12-11T17:37"
+        }
+      ],
+      "latestVotingOpening": {
+        "description": "Vota\u00e7\u00e3o em segundo turno.",
+        "registrationDateTime": "2026-05-27T23:18:56"
+      },
+      "event": {
+        "id": "82310",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/eventos/82310"
+      },
+      "organ": {
+        "id": "180",
+        "acronym": "PLEN",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/orgaos/180"
+      },
+      "officialReferences": [
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2233802-438",
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2233802-438/votos",
+        "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2233802",
+        "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2233802"
+      ],
+      "rawMetadata": {
+        "officialResponseFetchedAt": "2026-10-15T22:24:14.030775+00:00",
+        "storedBindings": [
+          {
+            "proposalId": "2233802",
+            "voting": {
+              "id": "2233802-438",
+              "votedOn": "2026-05-27",
+              "description": "Aprovada, em segundo turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00b0 221, de 2019. . Sim: 461; N\u00e3o: 19; Total: 480.",
+              "originalResult": "1",
+              "secret": false,
+              "source": {
+                "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/votacoes/2233802-438/votos",
+                "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2233802"
+              },
+              "totalRecordedVotes": 480,
+              "votesOffset": 0,
+              "votesLimit": null,
+              "nextVotesOffset": null,
+              "originalResultDescription": null,
+              "voteTotals": {
+                "for": 461,
+                "against": 19,
+                "abstention": 0,
+                "obstruction": 0,
+                "presence": 0,
+                "president": 0,
+                "absence": 0,
+                "other": 0,
+                "totalVotes": 480,
+                "recordCount": 480,
+                "complete": true,
+                "source": "INDIVIDUAL_RECORDS"
+              },
+              "individualVotesComplete": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "house": "CAMARA",
+      "votingId": "2351506-104",
+      "description": "Aprovada, em primeiro turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00ba 5, de 2023, na forma da Emenda Aglutinativa Substitutiva n\u00ba 3. Sim: 385; N\u00e3o: 93; Absten\u00e7\u00e3o: 7; Total: 485.",
+      "result": {
+        "originalApprovalIndicator": 1
+      },
+      "proposalReferences": [
+        {
+          "id": "2351506",
+          "type": "PEC",
+          "number": 5,
+          "year": 2023,
+          "identification": "PEC 5/2023",
+          "description": "Acrescenta \u00a7 4\u00ba-A ao art. 150 da Constitui\u00e7\u00e3o Federal, para dispor sobre a imunidade tribut\u00e1ria de que tratam as suas al\u00edneas \u201cb\u201d e \u201cc\u201d do inciso VI.",
+          "relation": "STORED_AFFECTED_BINDING",
+          "source": {
+            "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2351506",
+            "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2351506"
+          }
+        }
+      ],
+      "possibleObjects": [],
+      "registeredEffects": [],
+      "affectedProposals": [
+        {
+          "id": 2351506,
+          "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2351506",
+          "siglaTipo": "PEC",
+          "codTipo": 136,
+          "numero": 5,
+          "ano": 2023,
+          "ementa": "Acrescenta \u00a7 4\u00ba-A ao art. 150 da Constitui\u00e7\u00e3o Federal, para dispor sobre a imunidade tribut\u00e1ria de que tratam as suas al\u00edneas \u201cb\u201d e \u201cc\u201d do inciso VI.",
+          "dataApresentacao": "2023-03-15T18:06"
+        }
+      ],
+      "latestVotingOpening": {
+        "description": "Vota\u00e7\u00e3o da Emenda Aglutinativa Substitutiva n\u00ba 3, ressalvados os destaques.",
+        "registrationDateTime": "2026-05-28T14:32:52"
+      },
+      "event": {
+        "id": "82342",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/eventos/82342"
+      },
+      "organ": {
+        "id": "180",
+        "acronym": "PLEN",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/orgaos/180"
+      },
+      "officialReferences": [
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2351506-104",
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2351506-104/votos",
+        "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2351506",
+        "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2351506"
+      ],
+      "rawMetadata": {
+        "officialResponseFetchedAt": "2026-10-15T22:24:15.391853+00:00",
+        "storedBindings": [
+          {
+            "proposalId": "2351506",
+            "voting": {
+              "id": "2351506-104",
+              "votedOn": "2026-05-28",
+              "description": "Aprovada, em primeiro turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00ba 5, de 2023, na forma da Emenda Aglutinativa Substitutiva n\u00ba 3. Sim: 385; N\u00e3o: 93; Absten\u00e7\u00e3o: 7; Total: 485.",
+              "originalResult": "1",
+              "secret": false,
+              "source": {
+                "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/votacoes/2351506-104/votos",
+                "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2351506"
+              },
+              "totalRecordedVotes": 486,
+              "votesOffset": 0,
+              "votesLimit": null,
+              "nextVotesOffset": null,
+              "originalResultDescription": null,
+              "voteTotals": {
+                "for": 385,
+                "against": 93,
+                "abstention": 7,
+                "obstruction": 0,
+                "presence": 0,
+                "president": 0,
+                "absence": 0,
+                "other": 1,
+                "totalVotes": 485,
+                "recordCount": 486,
+                "complete": false,
+                "source": "INDIVIDUAL_RECORDS"
+              },
+              "individualVotesComplete": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "house": "CAMARA",
+      "votingId": "2351506-108",
+      "description": "Mantido o texto. Sim: 340; N\u00e3o: 110; Absten\u00e7\u00e3o: 7; Total: 457.",
+      "result": {
+        "originalApprovalIndicator": null
+      },
+      "proposalReferences": [
+        {
+          "id": "2351506",
+          "type": "PEC",
+          "number": 5,
+          "year": 2023,
+          "identification": "PEC 5/2023",
+          "description": "Acrescenta \u00a7 4\u00ba-A ao art. 150 da Constitui\u00e7\u00e3o Federal, para dispor sobre a imunidade tribut\u00e1ria de que tratam as suas al\u00edneas \u201cb\u201d e \u201cc\u201d do inciso VI.",
+          "relation": "STORED_AFFECTED_BINDING",
+          "source": {
+            "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2351506",
+            "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2351506"
+          }
+        }
+      ],
+      "possibleObjects": [],
+      "registeredEffects": [],
+      "affectedProposals": [
+        {
+          "id": 2351506,
+          "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2351506",
+          "siglaTipo": "PEC",
+          "codTipo": 136,
+          "numero": 5,
+          "ano": 2023,
+          "ementa": "Acrescenta \u00a7 4\u00ba-A ao art. 150 da Constitui\u00e7\u00e3o Federal, para dispor sobre a imunidade tribut\u00e1ria de que tratam as suas al\u00edneas \u201cb\u201d e \u201cc\u201d do inciso VI.",
+          "dataApresentacao": "2023-03-15T18:06"
+        }
+      ],
+      "latestVotingOpening": {
+        "description": "Vota\u00e7\u00e3o do DTQ 5 (Fdr PT-PCdoB-PV): Destaque para Vota\u00e7\u00e3o em Separado da express\u00e3o \"bem como creches, comunidades terap\u00eauticas, monast\u00e9rios, semin\u00e1rios, conventos, servi\u00e7os de acolhimento institucional, atividades socioassistenciais e demais atividades sem fins lucrativos\" do \u00a74\u00b0-A do art. 150 contido no art. 1\u00b0 da Emenda Aglutinativa n\u00b0 3, apresentada \u00e0 PEC 5/2023. (161, I)",
+        "registrationDateTime": "2026-05-28T15:28:39"
+      },
+      "event": {
+        "id": "82342",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/eventos/82342"
+      },
+      "organ": {
+        "id": "180",
+        "acronym": "PLEN",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/orgaos/180"
+      },
+      "officialReferences": [
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2351506-108",
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2351506-108/votos",
+        "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2351506",
+        "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2351506"
+      ],
+      "rawMetadata": {
+        "officialResponseFetchedAt": "2026-10-15T22:24:15.647454+00:00",
+        "storedBindings": [
+          {
+            "proposalId": "2351506",
+            "voting": {
+              "id": "2351506-108",
+              "votedOn": "2026-05-28",
+              "description": "Mantido o texto. Sim: 340; N\u00e3o: 110; Absten\u00e7\u00e3o: 7; Total: 457.",
+              "originalResult": null,
+              "secret": false,
+              "source": {
+                "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/votacoes/2351506-108/votos",
+                "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2351506"
+              },
+              "totalRecordedVotes": 458,
+              "votesOffset": 0,
+              "votesLimit": null,
+              "nextVotesOffset": null,
+              "originalResultDescription": null,
+              "voteTotals": {
+                "for": 340,
+                "against": 110,
+                "abstention": 7,
+                "obstruction": 0,
+                "presence": 0,
+                "president": 0,
+                "absence": 0,
+                "other": 1,
+                "totalVotes": 457,
+                "recordCount": 458,
+                "complete": false,
+                "source": "INDIVIDUAL_RECORDS"
+              },
+              "individualVotesComplete": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "house": "CAMARA",
+      "votingId": "2351506-122",
+      "description": "Aprovada, em segundo turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00b0 5, de 2023. Sim: 368; N\u00e3o: 96; Absten\u00e7\u00e3o: 7; Total: 471.",
+      "result": {
+        "originalApprovalIndicator": 1
+      },
+      "proposalReferences": [
+        {
+          "id": "2351506",
+          "type": "PEC",
+          "number": 5,
+          "year": 2023,
+          "identification": "PEC 5/2023",
+          "description": "Acrescenta \u00a7 4\u00ba-A ao art. 150 da Constitui\u00e7\u00e3o Federal, para dispor sobre a imunidade tribut\u00e1ria de que tratam as suas al\u00edneas \u201cb\u201d e \u201cc\u201d do inciso VI.",
+          "relation": "STORED_AFFECTED_BINDING",
+          "source": {
+            "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2351506",
+            "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2351506"
+          }
+        }
+      ],
+      "possibleObjects": [],
+      "registeredEffects": [],
+      "affectedProposals": [
+        {
+          "id": 2351506,
+          "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2351506",
+          "siglaTipo": "PEC",
+          "codTipo": 136,
+          "numero": 5,
+          "ano": 2023,
+          "ementa": "Acrescenta \u00a7 4\u00ba-A ao art. 150 da Constitui\u00e7\u00e3o Federal, para dispor sobre a imunidade tribut\u00e1ria de que tratam as suas al\u00edneas \u201cb\u201d e \u201cc\u201d do inciso VI.",
+          "dataApresentacao": "2023-03-15T18:06"
+        }
+      ],
+      "latestVotingOpening": {
+        "description": "Vota\u00e7\u00e3o em segundo turno.",
+        "registrationDateTime": "2026-05-28T16:48:06"
+      },
+      "event": {
+        "id": "82342",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/eventos/82342"
+      },
+      "organ": {
+        "id": "180",
+        "acronym": "PLEN",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/orgaos/180"
+      },
+      "officialReferences": [
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2351506-122",
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2351506-122/votos",
+        "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2351506",
+        "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2351506"
+      ],
+      "rawMetadata": {
+        "officialResponseFetchedAt": "2026-10-15T22:24:15.783880+00:00",
+        "storedBindings": [
+          {
+            "proposalId": "2351506",
+            "voting": {
+              "id": "2351506-122",
+              "votedOn": "2026-05-28",
+              "description": "Aprovada, em segundo turno, a Proposta de Emenda \u00e0 Constitui\u00e7\u00e3o n\u00b0 5, de 2023. Sim: 368; N\u00e3o: 96; Absten\u00e7\u00e3o: 7; Total: 471.",
+              "originalResult": "1",
+              "secret": false,
+              "source": {
+                "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/votacoes/2351506-122/votos",
+                "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2351506"
+              },
+              "totalRecordedVotes": 472,
+              "votesOffset": 0,
+              "votesLimit": null,
+              "nextVotesOffset": null,
+              "originalResultDescription": null,
+              "voteTotals": {
+                "for": 368,
+                "against": 96,
+                "abstention": 7,
+                "obstruction": 0,
+                "presence": 0,
+                "president": 0,
+                "absence": 0,
+                "other": 1,
+                "totalVotes": 471,
+                "recordCount": 472,
+                "complete": false,
+                "source": "INDIVIDUAL_RECORDS"
+              },
+              "individualVotesComplete": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "house": "CAMARA",
+      "votingId": "2545792-26",
+      "description": "Altera\u00e7\u00e3o do Regime de Tramita\u00e7\u00e3o desta proposi\u00e7\u00e3o em virtude da Aprova\u00e7\u00e3o do REQ 4287/2026.",
+      "result": {
+        "originalApprovalIndicator": 1
+      },
+      "proposalReferences": [
+        {
+          "id": "2545792",
+          "type": "PL",
+          "number": 3998,
+          "year": 2025,
+          "identification": "PL 3998/2025",
+          "description": "Altera a Lei n\u00ba 9.394, de 20 de dezembro de 1996, para permitir que despesas com programas suplementares de sa\u00fade visual, com terapias multidisciplinares para alunos neurodivergentes e com atendimento especializado a alunos com defici\u00eancia auditiva, todos da educa\u00e7\u00e3o b\u00e1sica p\u00fablica, sejam consideradas como de Manuten\u00e7\u00e3o e Desenvolvimento do Ensino.",
+          "relation": "STORED_AFFECTED_BINDING",
+          "source": {
+            "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2545792",
+            "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2545792"
+          }
+        }
+      ],
+      "possibleObjects": [],
+      "registeredEffects": [],
+      "affectedProposals": [
+        {
+          "id": 2545792,
+          "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2545792",
+          "siglaTipo": "PL",
+          "codTipo": 139,
+          "numero": 3998,
+          "ano": 2025,
+          "ementa": "Altera a Lei n\u00ba 9.394, de 20 de dezembro de 1996, para permitir que despesas com programas suplementares de sa\u00fade visual, com terapias multidisciplinares para alunos neurodivergentes e com atendimento especializado a alunos com defici\u00eancia auditiva, todos da educa\u00e7\u00e3o b\u00e1sica p\u00fablica, sejam consideradas como de Manuten\u00e7\u00e3o e Desenvolvimento do Ensino.",
+          "dataApresentacao": "2025-08-14T14:20"
+        }
+      ],
+      "latestVotingOpening": {
+        "description": null,
+        "registrationDateTime": null
+      },
+      "event": {
+        "id": null,
+        "uri": null
+      },
+      "organ": {
+        "id": "180",
+        "acronym": "PLEN",
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/orgaos/180"
+      },
+      "officialReferences": [
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2545792-26",
+        "https://dadosabertos.camara.leg.br/api/v2/votacoes/2545792-26/votos",
+        "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2545792",
+        "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2545792"
+      ],
+      "rawMetadata": {
+        "officialResponseFetchedAt": "2026-10-15T22:24:19.204263+00:00",
+        "storedBindings": [
+          {
+            "proposalId": "2545792",
+            "voting": {
+              "id": "2545792-26",
+              "votedOn": "2026-10-13",
+              "description": "Altera\u00e7\u00e3o do Regime de Tramita\u00e7\u00e3o desta proposi\u00e7\u00e3o em virtude da Aprova\u00e7\u00e3o do REQ 4287/2026.",
+              "originalResult": "1",
+              "secret": null,
+              "source": {
+                "dataUrl": "https://dadosabertos.camara.leg.br/api/v2/votacoes/2545792-26/votos",
+                "publicUrl": "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2545792"
+              },
+              "totalRecordedVotes": 0,
+              "votesOffset": 0,
+              "votesLimit": null,
+              "nextVotesOffset": null,
+              "originalResultDescription": null,
+              "voteTotals": {
+                "for": null,
+                "against": null,
+                "abstention": null,
+                "obstruction": null,
+                "presence": null,
+                "president": null,
+                "absence": null,
+                "other": null,
+                "totalVotes": null,
+                "recordCount": null,
+                "complete": false,
+                "source": "UNAVAILABLE"
+              },
+              "individualVotesComplete": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

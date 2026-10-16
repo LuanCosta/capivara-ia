@@ -1,7 +1,8 @@
 import logging
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, Response, status
+from pydantic import ValidationError
 from starlette.concurrency import run_in_threadpool
 
 from app.answering import (
@@ -37,6 +38,15 @@ from app.legislative_service import (
     LegislativeExplanationTimeoutError,
     create_legislative_explanation_service,
 )
+from app.legislative_classification.api_models import (
+    LegislativeClassificationRequest,
+    LegislativeClassificationResponse,
+    classification_schema,
+    classification_artifact_hash,
+)
+from app.legislative_classification.classifier import classify_record
+from app.legislative_classification.validate_schema import SchemaValidationError
+from app.legislative_classification.validate_schema import validate as validate_schema
 from app.news_models import NewsQuestionRequest, NewsQuestionResponse
 from app.news_service import NewsQuestionError, create_news_question_service
 from app.pdf_processing import (
@@ -282,6 +292,49 @@ async def answer_news_question(
         "News question completed: feed_id=%s question_type=%s",
         request.feed_id,
         request.question_type.value,
+    )
+    return response
+
+
+@app.post(
+    "/legislative/votes/classify",
+    response_model=LegislativeClassificationResponse,
+    dependencies=[Depends(require_internal_secret)],
+)
+async def classify_legislative_vote(
+    request: LegislativeClassificationRequest,
+    http_response: Response,
+) -> LegislativeClassificationResponse:
+    """Classifica metadados oficiais sem acessar banco ou serviços externos."""
+
+    logger.info(
+        "Starting legislative vote classification: house=%s voting_id=%s",
+        request.house,
+        request.voting_id,
+    )
+    try:
+        output = await run_in_threadpool(
+            classify_record,
+            request.to_classifier_record(),
+        )
+        validate_schema(output, classification_schema())
+        response = LegislativeClassificationResponse.model_validate(output)
+        http_response.headers["X-Capivara-Classifier-Artifact"] = classification_artifact_hash()
+    except (SchemaValidationError, ValidationError) as error:
+        logger.exception(
+            "Legislative classification violated schema: house=%s voting_id=%s",
+            request.house,
+            request.voting_id,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Legislative classification violated schema 1.1",
+        ) from error
+
+    logger.info(
+        "Legislative vote classification completed: house=%s voting_id=%s",
+        request.house,
+        request.voting_id,
     )
     return response
 

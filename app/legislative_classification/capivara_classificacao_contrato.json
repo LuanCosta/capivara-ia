@@ -1,0 +1,239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://capivara.example/schemas/legislative-vote-classification-1.1.json",
+  "title": "CapivaraLegislativeVoteClassification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "house",
+    "votingId",
+    "input",
+    "classification",
+    "provenObject",
+    "result",
+    "proposalReferences",
+    "evidence",
+    "method",
+    "classifierVersion",
+    "modelVersion",
+    "classifiedAt",
+    "annotationStatus",
+    "publication"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.1" },
+    "house": { "enum": ["CAMARA", "SENADO"] },
+    "votingId": { "type": "string", "minLength": 1 },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["officialDataHash", "sourceExtractedAt"],
+      "properties": {
+        "officialDataHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sourceExtractedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "sourceSchemaVersion": { "type": ["string", "null"] }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "votingType",
+        "legislativeStage",
+        "deliberationResult",
+        "textDecisionStatus",
+        "textForm",
+        "decisionRole",
+        "contextualMechanism",
+        "objectStatus",
+        "houseCompletionStatus",
+        "individualVoteAvailability",
+        "requiresHumanReview"
+      ],
+      "properties": {
+        "votingType": {
+          "enum": [
+            "REQUIREMENT",
+            "URGENCY_REQUEST",
+            "AMENDMENT",
+            "HIGHLIGHT",
+            "SUBSTITUTE_TEXT",
+            "BASE_TEXT",
+            "FINAL_WORDING",
+            "OTHER_PROCEDURAL",
+            "OTHER_SUBSTANTIVE",
+            "UNKNOWN"
+          ]
+        },
+        "legislativeStage": {
+          "enum": [
+            "FIRST_ROUND",
+            "SECOND_ROUND",
+            "SINGLE_ROUND",
+            "OTHER_STAGE",
+            "UNKNOWN"
+          ]
+        },
+        "deliberationResult": {
+          "enum": ["APPROVED", "REJECTED", "MAINTAINED", "OTHER", "UNKNOWN"]
+        },
+        "textDecisionStatus": {
+          "enum": [
+            "TEXT_DECISION_CONFIRMED",
+            "TEXT_DECISION_POSSIBLE",
+            "NOT_TEXT_DECISION",
+            "INDETERMINATE"
+          ]
+        },
+        "textForm": {
+          "enum": [
+            "ORIGINAL_OR_UNQUALIFIED",
+            "AGGLUTINATIVE_AMENDMENT",
+            "SUBSTITUTE_OR_SUBAMENDMENT",
+            "CONVERSION_BILL",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "decisionRole": {
+          "enum": [
+            "MAIN_PROPOSAL_DECISION",
+            "PARTIAL_TEXT_DECISION",
+            "PROCEDURAL_DECISION",
+            "INDETERMINATE"
+          ]
+        },
+        "contextualMechanism": {
+          "enum": ["HIGHLIGHT_OR_DTQ", null]
+        },
+        "objectStatus": {
+          "enum": [
+            "CONFIRMED_FROM_EXPLICIT_OFFICIAL_TEXT",
+            "POSSIBLE_FROM_CONTEXT",
+            "UNKNOWN"
+          ]
+        },
+        "houseCompletionStatus": {
+          "enum": [
+            "COMPLETED_IN_HOUSE_CONFIRMED",
+            "NOT_COMPLETED_IN_HOUSE_CONFIRMED",
+            "INDETERMINATE"
+          ]
+        },
+        "individualVoteAvailability": {
+          "enum": [
+            "AVAILABLE_IN_ARCHIVED_BINDING",
+            "OFFICIAL_ENDPOINT_REFERENCED_NOT_VERIFIED",
+            "NOT_AVAILABLE_CONFIRMED",
+            "UNKNOWN"
+          ]
+        },
+        "requiresHumanReview": { "type": "boolean" }
+      }
+    },
+    "provenObject": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "officialText", "proposalId", "note"],
+          "properties": {
+            "kind": { "type": "string" },
+            "officialText": { "type": "string", "minLength": 1 },
+            "proposalId": { "type": ["string", "null"] },
+            "note": { "type": ["string", "null"] }
+          }
+        }
+      ]
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["originalApprovalIndicator", "officialDescription"],
+      "properties": {
+        "originalApprovalIndicator": { "type": ["integer", "null"] },
+        "officialDescription": { "type": "string" }
+      }
+    },
+    "proposalReferences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "identification", "relation"],
+        "properties": {
+          "id": { "type": "string" },
+          "identification": { "type": ["string", "null"] },
+          "relation": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sourceField",
+          "officialExcerpt",
+          "officialReference",
+          "supports"
+        ],
+        "properties": {
+          "sourceField": { "type": "string" },
+          "officialExcerpt": { "type": "string", "minLength": 1 },
+          "officialReference": { "type": ["string", "null"], "format": "uri" },
+          "supports": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "method": {
+      "enum": [
+        "RULE_HIGH_PRECISION",
+        "LINEAR_MODEL",
+        "EMBEDDING_CLASSIFIER",
+        "LLM_FALLBACK",
+        "HUMAN_REVIEW",
+        "UNCLASSIFIED"
+      ]
+    },
+    "ruleId": { "type": ["string", "null"] },
+    "classifierVersion": { "type": "string" },
+    "modelVersion": { "type": ["string", "null"] },
+    "classifiedAt": { "type": ["string", "null"], "format": "date-time" },
+    "annotationStatus": {
+      "enum": [
+        "AUTOMATIC_PROPOSAL_NOT_HUMAN_VALIDATED",
+        "HUMAN_REVIEWED_REFERENCE"
+      ]
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eligibility", "reasons"],
+      "properties": {
+        "eligibility": {
+          "enum": ["ELIGIBLE", "BLOCKED_PENDING_REVIEW", "BLOCKED_INSUFFICIENT_EVIDENCE"]
+        },
+        "reasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "notes": { "type": ["string", "null"] }
+  }
+}
+
