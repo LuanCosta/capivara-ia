@@ -1,9 +1,10 @@
 from typing import Protocol
 
-from openai import AsyncOpenAI, OpenAIError
+from openai import OpenAIError
 from pydantic import BaseModel, Field
 
 from app.config import Settings
+from app.ai_usage import create_observed_client, observed_call
 from app.models import RetrievedChunk
 
 
@@ -54,7 +55,8 @@ class AnswerService:
         input_text = _build_input(question, chunks)
 
         try:
-            response = await self._client.responses.parse(
+            response = await observed_call(
+                "plans.ask", self._model, self._client.responses.parse,
                 model=self._model,
                 instructions=ANSWER_INSTRUCTIONS,
                 input=input_text,
@@ -79,7 +81,7 @@ def create_answer_service(settings: Settings) -> AnswerService:
     if not settings.openai_api_key:
         raise AnswerGenerationError("OpenAI is not configured")
 
-    client = AsyncOpenAI(api_key=settings.openai_api_key)
+    client = create_observed_client(api_key=settings.openai_api_key)
     return AnswerService(client, settings.openai_response_model)
 
 

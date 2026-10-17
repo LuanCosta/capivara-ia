@@ -1,9 +1,10 @@
 from typing import Protocol
 
-from openai import AsyncOpenAI, OpenAIError
+from openai import OpenAIError
 from pydantic import ValidationError
 
 from app.config import Settings
+from app.ai_usage import create_observed_client, observed_call
 from app.news_models import (
     ExplainNewsOutput,
     HowItAffectsMeOutput,
@@ -53,7 +54,9 @@ class NewsQuestionService:
             output_type = HowItAffectsMeOutput
 
         try:
-            response = await self._client.responses.parse(
+            response = await observed_call(
+                "news." + request.question_type.value.lower(), self._model, self._client.responses.parse,
+                reference={"feed_id": request.feed_id},
                 model=self._model,
                 input=prompt,
                 text_format=output_type,
@@ -82,5 +85,5 @@ def create_news_question_service(settings: Settings) -> NewsQuestionService:
     if not settings.openai_api_key:
         raise NewsQuestionError("OpenAI is not configured")
 
-    client = AsyncOpenAI(api_key=settings.openai_api_key)
+    client = create_observed_client(api_key=settings.openai_api_key)
     return NewsQuestionService(client, settings.openai_response_model)

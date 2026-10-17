@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from typing import Protocol
 
-from openai import AsyncOpenAI, OpenAIError
+from openai import OpenAIError
 
 from app.config import Settings
+from app.ai_usage import create_observed_client, observed_call
 from app.pdf_processing import ProposalChunk
 
 
@@ -40,7 +41,7 @@ class EmbeddingService:
     async def embed_text(self, text: str) -> list[float]:
         """Gera o vetor de um único texto, como a pergunta do usuário."""
 
-        vectors = await self._embed_texts([text])
+        vectors = await self._embed_texts([text], "embeddings.question")
         if len(vectors) != 1:
             raise EmbeddingError("OpenAI returned an unexpected embedding count")
         return vectors[0]
@@ -59,7 +60,7 @@ class EmbeddingService:
 
         for start in range(0, len(chunks), EMBEDDING_BATCH_SIZE):
             batch = chunks[start : start + EMBEDDING_BATCH_SIZE]
-            vectors = await self._embed_texts([chunk.content for chunk in batch])
+            vectors = await self._embed_texts([chunk.content for chunk in batch], "embeddings.document")
 
             if len(vectors) != len(batch):
                 raise EmbeddingError("OpenAI returned an unexpected embedding count")
@@ -75,9 +76,10 @@ class EmbeddingService:
 
         return embedded_chunks
 
-    async def _embed_texts(self, texts: list[str]) -> list[list[float]]:
+    async def _embed_texts(self, texts: list[str], feature: str = "embeddings.other") -> list[list[float]]:
         try:
-            response = await self._client.embeddings.create(
+            response = await observed_call(
+                feature, self._model, self._client.embeddings.create,
                 model=self._model,
                 input=texts,
                 dimensions=EMBEDDING_DIMENSIONS,
@@ -100,5 +102,5 @@ def create_embedding_service(settings: Settings) -> EmbeddingService:
     if not settings.openai_api_key:
         raise EmbeddingError("OpenAI is not configured")
 
-    client = AsyncOpenAI(api_key=settings.openai_api_key)
+    client = create_observed_client(api_key=settings.openai_api_key)
     return EmbeddingService(client, settings.openai_embedding_model)

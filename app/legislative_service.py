@@ -1,9 +1,10 @@
 from typing import Protocol
 
-from openai import APITimeoutError, AsyncOpenAI, OpenAIError
+from openai import APITimeoutError, OpenAIError
 from pydantic import ValidationError
 
 from app.config import Settings
+from app.ai_usage import create_observed_client, observed_call
 from app.legislative_models import (
     LegislativeVoteExplanationRequest,
     LegislativeVoteExplanationResponse,
@@ -55,7 +56,9 @@ class LegislativeVoteExplanationService:
         request: LegislativeVoteExplanationRequest,
     ) -> LegislativeVoteExplanationResponse:
         try:
-            response = await self._client.responses.parse(
+            response = await observed_call(
+                "legislative.explain", self._model, self._client.responses.parse,
+                reference={"house": request.house.value, "version": EXPLANATION_VERSION},
                 model=self._model,
                 input=build_legislative_vote_prompt(request),
                 text_format=LegislativeVoteExplanationResponse,
@@ -133,7 +136,7 @@ def create_legislative_explanation_service(
     if not settings.openai_api_key:
         raise LegislativeExplanationError("OpenAI is not configured")
 
-    client = AsyncOpenAI(
+    client = create_observed_client(
         api_key=settings.openai_api_key,
         timeout=settings.openai_legislative_timeout_seconds,
     )

@@ -57,6 +57,7 @@ from app.pdf_processing import (
 )
 from app.repositories import ProposalDocumentRepository, get_document_repository
 from app.security import require_internal_secret
+from app import ai_usage
 
 
 logger = logging.getLogger("uvicorn.error")
@@ -66,6 +67,12 @@ app = FastAPI(
     title="Capivara Proposals AI",
     version="0.1.0",
 )
+
+
+@app.get("/internal/ai-usage", dependencies=[Depends(require_internal_secret)])
+async def ai_usage_summary() -> dict:
+    """Tokens and estimated cost for this process only. Never a billing total."""
+    return ai_usage.meter.snapshot()
 
 
 @app.get("/health", response_model=HealthResponse)

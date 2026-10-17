@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from typing import Protocol
 
-from openai import AsyncOpenAI, OpenAIError
+from openai import OpenAIError
 
 from app.config import Settings
+from app.ai_usage import create_observed_client, observed_call
 from app.models import DocumentAnalysisScores
 from app.pdf_processing import ProposalChunk
 
@@ -78,7 +79,8 @@ class ThemeComparisonService:
         input_text = _build_analysis_input(chunks)
 
         try:
-            response = await self._client.responses.parse(
+            response = await observed_call(
+                "plans.document_analysis", self._model, self._client.responses.parse,
                 model=self._model,
                 instructions=ANALYSIS_INSTRUCTIONS,
                 input=input_text,
@@ -106,7 +108,7 @@ def create_comparison_service(settings: Settings) -> ThemeComparisonService:
     if not settings.openai_api_key:
         raise ComparisonAnalysisError("OpenAI is not configured")
 
-    client = AsyncOpenAI(api_key=settings.openai_api_key)
+    client = create_observed_client(api_key=settings.openai_api_key)
     return ThemeComparisonService(client, settings.openai_response_model)
 
 
